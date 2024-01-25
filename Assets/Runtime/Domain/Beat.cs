@@ -7,6 +7,7 @@ namespace Runtime.Domain
         private int framesDuration;
 
         public int CurrentFrame { get; private set; }
+        public bool IsCompleted => CurrentFrame >= framesDuration;
 
         public Beat(int framesDuration)
         {

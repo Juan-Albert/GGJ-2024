@@ -19,7 +19,15 @@ namespace Runtime.Tests.EditMode
             Assert.True(sut.CurrentFrame == 1);
             sut.Next();
             Assert.True(sut.CurrentFrame == 2);
+        }
 
+        [Test]
+        public void BeatIsCompleted()
+        {
+            var sut = new Beat(1);
+            Assert.False(sut.IsCompleted);
+            sut.Next();
+            Assert.True(sut.IsCompleted);
         }
     }
 }
