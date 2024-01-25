@@ -11,6 +11,13 @@ namespace Runtime.Tests.EditMode
         {
             Assert.True(!Sheet.Empty.Beats.Any());
         }
-        
+
+        [Test]
+        public void CurrentBeat_IsFirstByDefault()
+        {
+            var beat = new Beat(1);
+            var sut = new Sheet(new[] { beat });
+            Assert.True(sut.CurrentBeat.Equals(beat));
+        }
     }
 }

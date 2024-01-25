@@ -11,5 +11,14 @@ namespace Runtime.Tests.EditMode
             Assert.True(Note.Silence.Equals(new Note("Silence")));
             Assert.False(Note.Silence.Equals(new Note("Sound")));
         }
+
+        [Test]
+        public void NotePlaySound()
+        {
+            var sound = "Sound";
+            var sut = new Note(sound);
+            
+            Assert.True(sut.Play().Equals(sound));
+        }
     }
 }

@@ -11,6 +11,8 @@
 
         public static Note Silence => new Note("Silence");
 
+        public string Play() => sound;
+
         public bool Equals(Note note)
         {
             return sound.Equals(note.sound);

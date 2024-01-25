@@ -6,7 +6,7 @@ namespace Runtime.Tests.EditMode
     public class BeatTests
     {
         [Test]
-        public void BeatStartAt_FirstFrame()
+        public void CurrentFrame_IsZeroByDefault()
         {
             Assert.True(new Beat(1).CurrentFrame == 0);
         }
@@ -16,9 +16,9 @@ namespace Runtime.Tests.EditMode
         {
             var sut = new Beat(2);
             sut.Next();
-            Assert.True(sut.CurrentFrame == 1);
+            Assert.True(sut.CurrentFrame.Equals(1));
             sut.Next();
-            Assert.True(sut.CurrentFrame == 2);
+            Assert.True(sut.CurrentFrame.Equals(2));
         }
 
         [Test]
