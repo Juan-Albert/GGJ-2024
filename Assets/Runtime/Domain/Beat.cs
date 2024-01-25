@@ -1,4 +1,4 @@
-﻿namespace Runtime.Tests.EditMode
+﻿namespace Runtime.Domain
 {
     public class Beat
     {

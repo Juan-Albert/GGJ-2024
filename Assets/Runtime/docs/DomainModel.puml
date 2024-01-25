@@ -1,11 +1,11 @@
 ﻿@startuml
 
-Sheet *--> "*" Note
 Sheet *--> Tempo
-Sheet *--> "*" Beat
+Sheet *--> "1..*" Beat
 Note *--> Symbol
-Note  --> "play at" Beat
-Beat *--> Frame
+Note  --> "play at" Frame
+Beat *--> "1..*" Frame
+Beat *--> Note
 Note <|-- Silence
 Note <|-- Sound
 Tempo --> Frame

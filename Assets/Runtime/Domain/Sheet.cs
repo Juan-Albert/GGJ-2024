@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Runtime.Tests.EditMode
+namespace Runtime.Domain
 {
     public class Sheet
     {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using Runtime.Domain;
 
 namespace Runtime.Tests.EditMode
 {
@@ -10,5 +11,6 @@ namespace Runtime.Tests.EditMode
         {
             Assert.True(!Sheet.Empty.Beats.Any());
         }
+        
     }
 }
