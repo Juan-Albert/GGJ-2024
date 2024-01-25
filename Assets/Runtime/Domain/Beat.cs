@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor.Experimental.GraphView;
 
 namespace Runtime.Domain
 {
@@ -9,7 +10,12 @@ namespace Runtime.Domain
         public int CurrentFrame { get; private set; }
         public bool IsCompleted => CurrentFrame >= framesDuration;
 
-        public Beat(int framesDuration)
+        public Beat(int framesDuration) : this (framesDuration, Note.Silence)
+        {
+            
+        }
+
+        public Beat(int framesDuration, Note note)
         {
             if (framesDuration <= 0)
                 throw new NotSupportedException("No se puede crear un beat con 0 o menos frames");

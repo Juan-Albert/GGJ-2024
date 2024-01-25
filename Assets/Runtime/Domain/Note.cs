@@ -9,7 +9,7 @@
             this.sound = sound;
         }
 
-        public static Note Silence => new Note("Silence");
+        public static Note Silence => new ("Silence");
 
         public string Play() => sound;
 
