@@ -3,13 +3,11 @@
 Sheet *--> "*" Note
 Sheet *--> Tempo
 Sheet *--> "*" Beat
-Note *--> Duration
-Note  *--> "play at" Beat
-Duration *--> "*" "Beat"
+Note *--> Symbol
+Note  --> "play at" Beat
 Beat *--> Frame
-Tempo --> Duration 
-
 Note <|-- Silence
 Note <|-- Sound
+Tempo --> Frame
 
 @enduml
