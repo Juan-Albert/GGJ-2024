@@ -12,6 +12,12 @@ namespace Runtime.Tests.EditMode
         {
             Assert.True(!Sheet.Empty.Beats.Any());
         }
+        
+        [Test]
+        public void EmptySheet_HasEnded()
+        {
+            Assert.True(Sheet.Empty.HasEnded);
+        }
 
         [Test]
         public void CurrentBeat_IsFirstByDefault()
