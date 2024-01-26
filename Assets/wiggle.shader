@@ -5,6 +5,7 @@ Shader "Unlit/wiggle"
         _MainTex ("Texture", 2D) = "white" {}
         _NormalMap ("Normal map", 2D) = "white" {}
         _Speed("Speed", float)=0.1
+        _Factor("Factor", float)=0.1
     }
     SubShader
     {
@@ -38,6 +39,7 @@ Shader "Unlit/wiggle"
             sampler2D _NormalMap;
             float4 _NormalMap_ST;
             float _Speed;
+            float _Factor;
 
             v2f vert (appdata v)
             {
@@ -51,10 +53,12 @@ Shader "Unlit/wiggle"
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 normalUV = i.uv * _NormalMap_ST.xy + _NormalMap_ST.zw;
-                normalUV += _Speed * _Time.y;
-                fixed4 normalMap = tex2D(_NormalMap, normalUV);
+                float myTime=_Time.y%5;
+                fixed4 normalMap = tex2D(_NormalMap, normalUV+myTime);
+                return normalMap;
+
                 //return normalMap;
-                i.uv += normalMap.xy;
+                i.uv = i.uv+normalMap.yz*_Factor;
                 fixed4 col = tex2D(_MainTex, i.uv);
 
                 return col;
