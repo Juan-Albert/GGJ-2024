@@ -15,9 +15,9 @@ namespace Runtime.Tests.EditMode
         public void BeatNextFrame()
         {
             var sut = new Beat(2);
-            sut.Next();
+            sut.NextFrame();
             Assert.True(sut.CurrentFrame.Equals(1));
-            sut.Next();
+            sut.NextFrame();
             Assert.True(sut.CurrentFrame.Equals(2));
         }
 
@@ -26,7 +26,7 @@ namespace Runtime.Tests.EditMode
         {
             var sut = new Beat(1);
             Assert.False(sut.IsCompleted);
-            sut.Next();
+            sut.NextFrame();
             Assert.True(sut.IsCompleted);
         }
     }

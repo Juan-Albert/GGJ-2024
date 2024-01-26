@@ -10,10 +10,9 @@ namespace Runtime.Domain
         public int CurrentFrame { get; private set; }
         public bool IsCompleted => CurrentFrame >= framesDuration;
 
-        public Beat(int framesDuration) : this (framesDuration, Note.Silence)
-        {
-            
-        }
+        public static Beat Silence => new (1);
+
+        public Beat(int framesDuration) : this (framesDuration, Note.Silence) { }
 
         public Beat(int framesDuration, Note note)
         {
@@ -24,12 +23,12 @@ namespace Runtime.Domain
             CurrentFrame = 0;
         }
 
-        public void Next()
+        public void NextFrame()
         {
-            if (CurrentFrame >= framesDuration)
+            if (IsCompleted)
                 throw new NotSupportedException("El beat ya habia terminado y quería seguir");
 
-            CurrentFrame += 1;
+            CurrentFrame++;
         }
     }
 }
