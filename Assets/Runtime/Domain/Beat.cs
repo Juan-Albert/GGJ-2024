@@ -13,7 +13,7 @@ namespace Runtime.Domain
         public bool IsCompleted => CurrentFrame >= framesDuration;
 
         public static Beat Silence => new (1);
-        public static Beat Sound => new (60, new Note("Sound"));
+        public static Beat Sound => new (30, new Note("Sound"));
 
         public Beat(int framesDuration) : this (framesDuration, Note.Silence) { }
 
