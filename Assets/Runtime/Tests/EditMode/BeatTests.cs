@@ -30,5 +30,20 @@ namespace Runtime.Tests.EditMode
             sut.NextFrame();
             sut.IsCompleted.Should().BeTrue();
         }
+
+        [Test]
+        public void PlayBeat_AtFirstFrame_Sound()
+        {
+            var sut = new Beat(1, new Note("Sound"));
+            sut.Play().Should().Be("Sound");
+        }
+        
+        [Test]
+        public void PlayBeat_LaterThanFirstFrame_DoNotSound()
+        {
+            var sut = new Beat(2, new Note("Sound"));
+            sut.NextFrame();
+            sut.Play().Should().Be(Note.Silence.Play());
+        }
     }
 }

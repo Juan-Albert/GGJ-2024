@@ -29,25 +29,6 @@ namespace Runtime.Tests.EditMode
         }
 
         [Test]
-        public void CurrentFrame_IsZeroByDefault()
-        {
-            var sut = new Sheet(Array.Empty<Beat>());
-            sut.CurrentFrame.Should().Be(0);
-        }
-
-        [Test]
-        public void NextFrame()
-        {
-            var sut = new Sheet(new []{new Beat(3)});
-            sut.NextFrame();
-            sut.CurrentFrame.Should().Be(1);
-            sut.NextFrame();
-            sut.CurrentFrame.Should().Be(2);
-            sut.NextFrame();
-            sut.CurrentFrame.Should().Be(3);
-        }
-
-        [Test]
         public void TwoFrameBeat_AfterNextFrame_IsCurrent()
         {
             var beat = new Beat(2);
@@ -65,6 +46,7 @@ namespace Runtime.Tests.EditMode
             var sut = new Sheet(new[] { beat1, beat2});
 
             sut.NextFrame();
+            sut.CurrentBeat.Should().NotBe(beat1);
             sut.CurrentBeat.Should().Be(beat2);
         }
     }

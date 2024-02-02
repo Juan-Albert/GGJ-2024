@@ -7,6 +7,8 @@ namespace Runtime.Domain
     {
         private int framesDuration;
 
+        private Note note;
+
         public int CurrentFrame { get; private set; }
         public bool IsCompleted => CurrentFrame >= framesDuration;
 
@@ -21,7 +23,10 @@ namespace Runtime.Domain
             
             this.framesDuration = framesDuration;
             CurrentFrame = 0;
+            this.note = note;
         }
+
+        public string Play() => CurrentFrame == 0 ? note.Play() : Note.Silence.Play();
 
         public void NextFrame()
         {

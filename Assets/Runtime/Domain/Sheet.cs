@@ -7,13 +7,12 @@ namespace Runtime.Domain
     public class Sheet
     {
         public IEnumerable<Beat> Beats { get; }
-        public int CurrentFrame { get; private set; }
         
         private int currentBeatIndex;
         
         public Beat CurrentBeat => HasEnded ? Beat.Silence : Beats.ElementAt(currentBeatIndex);
         public bool HasEnded => currentBeatIndex >= Beats.Count();
-        
+
         
         public static Sheet Empty => new (new List<Beat>());
 
@@ -23,21 +22,20 @@ namespace Runtime.Domain
                 throw new ArgumentException("La lista de beats no puede ser nula");
             
             Beats = beats;
-            CurrentFrame = 0;
             currentBeatIndex = 0;
         }
+        
+        public string PlayCurrentBeat => CurrentBeat.Play();
 
         public void NextFrame()
         {
             if(HasEnded)
-                return;
+                throw new NotSupportedException("No se puede reproducir una partitura que ya ha terminado");
             
-            CurrentFrame++;
-
-            if (CurrentBeat.IsCompleted)
+            CurrentBeat.NextFrame();
+            
+            if(CurrentBeat.IsCompleted)
                 NextBeat();
-            else
-                CurrentBeat.NextFrame();
         }
 
         private void NextBeat()
