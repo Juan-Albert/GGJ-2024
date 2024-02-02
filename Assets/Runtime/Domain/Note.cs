@@ -1,6 +1,6 @@
 ﻿namespace Runtime.Domain
 {
-    public class Note
+    public readonly struct Note
     {
         private readonly string sound;
 
@@ -12,10 +12,5 @@
         public static Note Silence => new ("Silence");
 
         public string Play() => sound;
-
-        public bool Equals(Note note)
-        {
-            return sound.Equals(note.sound);
-        }
     }
 }

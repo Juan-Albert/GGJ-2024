@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 using Runtime.Domain;
 
@@ -10,13 +11,13 @@ namespace Runtime.Tests.EditMode
         [Test]
         public void EmptySheet_ContainNoBeats()
         {
-            Assert.True(!Sheet.Empty.Beats.Any());
+            Sheet.Empty.Beats.Any().Should().BeFalse();
         }
         
         [Test]
         public void EmptySheet_HasEnded()
         {
-            Assert.True(Sheet.Empty.HasEnded);
+            Sheet.Empty.HasEnded.Should().BeTrue();
         }
 
         [Test]
@@ -24,14 +25,14 @@ namespace Runtime.Tests.EditMode
         {
             var beat = new Beat(1);
             var sut = new Sheet(new[] { beat });
-            Assert.True(sut.CurrentBeat.Equals(beat));
+            sut.CurrentBeat.Should().Be(beat);
         }
 
         [Test]
         public void CurrentFrame_IsZeroByDefault()
         {
             var sut = new Sheet(Array.Empty<Beat>());
-            Assert.True(sut.CurrentFrame.Equals(0));
+            sut.CurrentFrame.Should().Be(0);
         }
 
         [Test]
@@ -39,11 +40,11 @@ namespace Runtime.Tests.EditMode
         {
             var sut = new Sheet(new []{new Beat(3)});
             sut.NextFrame();
-            Assert.True(sut.CurrentFrame.Equals(1));
+            sut.CurrentFrame.Should().Be(1);
             sut.NextFrame();
-            Assert.True(sut.CurrentFrame.Equals(2));
+            sut.CurrentFrame.Should().Be(2);
             sut.NextFrame();
-            Assert.True(sut.CurrentFrame.Equals(3));
+            sut.CurrentFrame.Should().Be(3);
         }
 
         [Test]
@@ -53,7 +54,7 @@ namespace Runtime.Tests.EditMode
             var sut = new Sheet(new[] { beat });
 
             sut.NextFrame();
-            Assert.True(sut.CurrentBeat.Equals(beat));
+            sut.CurrentBeat.Should().Be(beat);
         }
 
         [Test]
@@ -64,7 +65,7 @@ namespace Runtime.Tests.EditMode
             var sut = new Sheet(new[] { beat1, beat2});
 
             sut.NextFrame();
-            Assert.True(sut.CurrentBeat.Equals(beat2));
+            sut.CurrentBeat.Should().Be(beat2);
         }
     }
 }

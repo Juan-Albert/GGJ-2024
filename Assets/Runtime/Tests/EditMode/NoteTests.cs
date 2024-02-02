@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using Runtime.Domain;
 
 namespace Runtime.Tests.EditMode
@@ -8,8 +9,8 @@ namespace Runtime.Tests.EditMode
         [Test]
         public void NoteEquality()
         {
-            Assert.True(Note.Silence.Equals(new Note("Silence")));
-            Assert.False(Note.Silence.Equals(new Note("Sound")));
+            Note.Silence.Should().Be(new Note("Silence"));
+            Note.Silence.Should().NotBe(new Note("Sound"));
         }
 
         [Test]
@@ -17,8 +18,8 @@ namespace Runtime.Tests.EditMode
         {
             var sound = "Sound";
             var sut = new Note(sound);
-            
-            Assert.True(sut.Play().Equals(sound));
+
+            sut.Play().Should().Be(sound);
         }
     }
 }

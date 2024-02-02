@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using Runtime.Domain;
 
 namespace Runtime.Tests.EditMode
@@ -8,7 +9,7 @@ namespace Runtime.Tests.EditMode
         [Test]
         public void CurrentFrame_IsZeroByDefault()
         {
-            Assert.True(new Beat(1).CurrentFrame == 0);
+            new Beat(1).CurrentFrame.Should().Be(0);
         }
 
         [Test]
@@ -16,18 +17,18 @@ namespace Runtime.Tests.EditMode
         {
             var sut = new Beat(2);
             sut.NextFrame();
-            Assert.True(sut.CurrentFrame.Equals(1));
+            sut.CurrentFrame.Should().Be(1);
             sut.NextFrame();
-            Assert.True(sut.CurrentFrame.Equals(2));
+            sut.CurrentFrame.Should().Be(2);
         }
 
         [Test]
         public void BeatIsCompleted()
         {
             var sut = new Beat(1);
-            Assert.False(sut.IsCompleted);
+            sut.IsCompleted.Should().BeFalse();
             sut.NextFrame();
-            Assert.True(sut.IsCompleted);
+            sut.IsCompleted.Should().BeTrue();
         }
     }
 }
