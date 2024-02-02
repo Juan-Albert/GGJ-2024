@@ -25,7 +25,7 @@ namespace Runtime.Domain
             currentBeatIndex = 0;
         }
         
-        public string PlayCurrentBeat => CurrentBeat.Play();
+        public string PlayCurrentBeat() => CurrentBeat.Play();
 
         public void NextFrame()
         {
