@@ -1,40 +1,29 @@
 ﻿using System;
-using UnityEditor.Experimental.GraphView;
 
 namespace Runtime.Domain
 {
     public class Beat
     {
-        private int framesDuration;
-
+        public int Duration { get; }
+        
+        private bool hadSound;
         private Note note;
 
-        public int CurrentFrame { get; private set; }
-        public bool IsCompleted => CurrentFrame >= framesDuration;
+        public Beat(int duration) : this (duration, Note.Silence) { }
 
-        public static Beat Silence => new (1);
-        public static Beat Sound => new (30, new Note("Sound"));
-
-        public Beat(int framesDuration) : this (framesDuration, Note.Silence) { }
-
-        public Beat(int framesDuration, Note note)
+        public Beat(int duration, Note note)
         {
-            if (framesDuration <= 0)
-                throw new NotSupportedException("No se puede crear un beat con 0 o menos frames");
-            
-            this.framesDuration = framesDuration;
-            CurrentFrame = 0;
+            if (duration <= 0)
+                throw new NotSupportedException("No se puede crear un beat que no tenga duracion");
+
+            hadSound = false;
+            Duration = duration;
             this.note = note;
         }
 
-        public string Play() => CurrentFrame == 0 ? note.Play() : Note.Silence.Play();
+        public string Play() => hadSound ? Note.Silence.Play() : note.Play();
 
-        public void NextFrame()
-        {
-            if (IsCompleted)
-                throw new NotSupportedException("El beat ya habia terminado y quería seguir");
-
-            CurrentFrame++;
-        }
+        public static Beat Silence => new (1);
+        public static Beat Sound => new (1, new Note("Sound"));
     }
 }
