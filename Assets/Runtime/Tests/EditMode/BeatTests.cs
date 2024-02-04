@@ -16,9 +16,9 @@ namespace Runtime.Tests.EditMode
         [Test]
         public void PlayBeat_SecondTime_DoNotSound()
         {
-            var sut = new Beat(2, new Note("Sound"));
+            var sut = new Beat(1, new Note("Sound"));
             sut.Play();
-            sut.Play().Should().Be(Note.Silence.Play());
+            sut.Play().Should().Be(Note.Silence.Sound);
         }
     }
 }

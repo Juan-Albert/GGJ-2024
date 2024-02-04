@@ -25,6 +25,7 @@ namespace Runtime.Domain
         }
 
         public static Tempo Lento => new(40);
+        public static Tempo OneBeatPerSecond => new(60);
         public static Tempo Moderato => new(80);
         public static Tempo Presto => new(160);
     }

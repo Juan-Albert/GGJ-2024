@@ -14,16 +14,7 @@ public class BeatLogPrinter : MonoBehaviour
         if (sheet.HasEnded)
             sheet = CreateSheet();
 
-        Debug.Log(sheet.PlayCurrentBeat());
-        sheet.NextFrame();
     }
 
-    private static Sheet CreateSheet() 
-        => new(new[]
-        {
-            Beat.Sound,
-            Beat.Sound,
-            Beat.Sound,
-            Beat.Sound
-        });
+    private static Sheet CreateSheet() => Sheet.OneBeatSheet;
 }

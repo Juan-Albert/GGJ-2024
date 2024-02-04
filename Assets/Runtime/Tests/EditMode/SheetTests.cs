@@ -24,30 +24,34 @@ namespace Runtime.Tests.EditMode
         public void CurrentBeat_IsFirstByDefault()
         {
             var beat = new Beat(1);
-            var sut = new Sheet(new[] { beat });
+            var otherBeat = new Beat(1);
+            var sut = new Sheet(new Tempo(1), new ForwardTime(), new[] { beat, otherBeat });
             sut.CurrentBeat.Should().Be(beat);
         }
 
         [Test]
-        public void TwoFrameBeat_AfterNextFrame_IsCurrent()
+        public void AsTimeGoesBy_BeatChange()
         {
-            var beat = new Beat(2);
-            var sut = new Sheet(new[] { beat });
+            var beat = new Beat(1);
+            var otherBeat = new Beat(2);
+            var sut = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new[] { beat, otherBeat });
+            
+            sut.PassTime(1.1f);
 
-            sut.NextFrame();
-            sut.CurrentBeat.Should().Be(beat);
+            sut.CurrentBeat.Should().Be(otherBeat);
         }
-
+        
         [Test]
-        public void OneFrameBeat_AfterNextFrame_IsNotCurrent()
+        public void Play()
         {
-            var beat1 = new Beat(1);
-            var beat2 = new Beat(1);
-            var sut = new Sheet(new[] { beat1, beat2});
+            var beat = new Beat(1, "sound");
+            var otherBeat = new Beat(2 ,"otherSound");
+            var sut = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new[] { beat, otherBeat });
 
-            sut.NextFrame();
-            sut.CurrentBeat.Should().NotBe(beat1);
-            sut.CurrentBeat.Should().Be(beat2);
+            sut.Play().Should().Be("sound");
+            sut.PassTime(1.1f);
+            sut.Play().Should().Be("otherSound");
         }
+        
     }
 }

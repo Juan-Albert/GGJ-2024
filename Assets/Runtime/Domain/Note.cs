@@ -2,15 +2,16 @@
 {
     public readonly struct Note
     {
-        private readonly string sound;
+        public string Sound { get; }
 
         public Note(string sound)
         {
-            this.sound = sound;
+            Sound = sound;
         }
 
         public static Note Silence => new ("Silence");
 
-        public string Play() => sound;
+        public static implicit operator string(Note note) => note.Sound;
+        public static implicit operator Note(string sound) => new (sound);
     }
 }

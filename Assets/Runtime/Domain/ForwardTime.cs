@@ -4,7 +4,7 @@ namespace Runtime.Domain
 {
     public class ForwardTime
     {
-        public float ElapsedTimeInSecond { get; set; }
+        public float ElapsedTimeInSecond { get; private set; }
 
         public void PassTime(float elapsedTime)
         {

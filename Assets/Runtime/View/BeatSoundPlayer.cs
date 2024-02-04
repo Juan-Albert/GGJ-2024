@@ -9,21 +9,12 @@ public class BeatSoundPlayer : MonoBehaviour
     private Sheet sheet;
     private void Awake() => sheet = CreateSheet();
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (sheet.HasEnded)
             sheet = CreateSheet();
 
-        audioSelector.Play(sheet.PlayCurrentBeat());
-        sheet.NextFrame();
     }
 
-    private static Sheet CreateSheet() 
-        => new(new[]
-        {
-            Beat.Sound,
-            Beat.Sound,
-            Beat.Sound,
-            Beat.Sound
-        });
+    private static Sheet CreateSheet() => Sheet.OneBeatSheet;
 }

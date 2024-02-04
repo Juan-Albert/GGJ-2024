@@ -19,7 +19,7 @@ namespace Runtime.Tests.EditMode
             var sound = "Sound";
             var sut = new Note(sound);
 
-            sut.Play().Should().Be(sound);
+            sut.Sound.Should().Be(sound);
         }
     }
 }
