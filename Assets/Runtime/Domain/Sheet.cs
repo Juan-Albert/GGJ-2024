@@ -52,7 +52,7 @@ namespace Runtime.Domain
 
         public static Sheet OneBeatSheet => new 
             (
-                new Tempo(1),
+                Tempo.Allegro,
                 new ForwardTime(),
                 new List<Beat> { Beat.Sound }
             );

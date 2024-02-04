@@ -24,9 +24,12 @@ namespace Runtime.Domain
             return tempoUnits * SecondsPerBeat;
         }
 
+        public static Tempo Lentissimo => new(20);
         public static Tempo Lento => new(40);
         public static Tempo OneBeatPerSecond => new(60);
         public static Tempo Moderato => new(80);
+        public static Tempo Allegro => new(120);
         public static Tempo Presto => new(160);
+        public static Tempo Prestissimo => new(200);
     }
 }

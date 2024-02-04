@@ -13,7 +13,9 @@ public class BeatSoundPlayer : MonoBehaviour
     {
         if (sheet.HasEnded)
             sheet = CreateSheet();
-
+        
+        audioSelector.Play(sheet.Play());
+        sheet.PassTime(Time.deltaTime);
     }
 
     private static Sheet CreateSheet() => Sheet.OneBeatSheet;
