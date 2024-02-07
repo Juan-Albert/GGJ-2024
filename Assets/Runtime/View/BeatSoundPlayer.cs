@@ -1,6 +1,13 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
+//tener una sheet para el ritmo y otra para lo que hay que tocar
+//Crear las notas del juego
+//Crear los inputs disponibles
+//Animar el payaso en funcion del output
+//Hacer un evento de cuando suena un beat de la sheet de ritmo
+//Reaccionar al evento con animaciones y efectos en la vista
+
 public class BeatSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSelector audioSelector;

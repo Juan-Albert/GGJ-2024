@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Runtime.Domain
 {
-    //Tocar una nota en una partitura y saber como de bien se ha tocado
     public class Sheet
     {
         public ForwardTime ForwardTime { get; }
