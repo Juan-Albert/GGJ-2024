@@ -9,8 +9,10 @@ namespace Runtime.Domain
         private bool hadSound;
         private readonly Note note;
 
+        public bool HasNote(Note note) => this.note.Sound == note.Sound;
+        
         public Beat(int duration) : this (duration, Note.Silence) { }
-
+        
         public Beat(int duration, Note note)
         {
             if (duration <= 0)
@@ -22,7 +24,7 @@ namespace Runtime.Domain
         }
 
         public string Play() => hadSound ? Note.Silence.Sound : PlayFirstTime();
-
+        
         private string PlayFirstTime()
         {
             hadSound = true;
@@ -31,5 +33,6 @@ namespace Runtime.Domain
 
         public static Beat Silence => new (1);
         public static Beat Sound => new (1, new Note("Sound"));
+        public static Beat Rhythm => new (1, new Note("Rhythm"));
     }
 }

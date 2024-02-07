@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Runtime.Domain
 {
+    //Tocar una nota en una partitura y saber como de bien se ha tocado
     public class Sheet
     {
         public ForwardTime ForwardTime { get; }
@@ -11,6 +12,7 @@ namespace Runtime.Domain
         public IEnumerable<Beat> Beats { get; }
         
         public Beat CurrentBeat => HasEnded ? Beat.Silence : BeatAtCurrentTime();
+        public Beat NextBeat => throw new NotImplementedException();
         public bool HasEnded => ForwardTime.ElapsedTimeInSecond >= TotalSheetDuration;
         public float TotalSheetDuration => Beats.Sum(b => TempoOfSheet.ToSeconds(b.Duration));
 
@@ -25,6 +27,19 @@ namespace Runtime.Domain
         }
 
         public string Play() => CurrentBeat.Play();
+        
+        public OnTime.Result IsOnTime(Note note)
+        {
+            // hacerlo con el next beat tambien
+            if (HasEnded)
+                return OnTime.Result.Out;
+            
+            if (!CurrentBeat.HasNote(note))
+                return OnTime.Result.Out;
+            
+            var played = new PlayedNote(ForwardTime.ElapsedTimeInSecond, note);
+            return played.OnTimeAt(CurrentTimeOf(CurrentBeat)); 
+        }
 
         public void PassTime(float elapsedTime)
         {
@@ -34,8 +49,28 @@ namespace Runtime.Domain
             ForwardTime.PassTime(elapsedTime);
         }
 
+        private float CurrentTimeOf(Beat beat)
+        {
+            if (!Beats.Contains(beat))
+                throw new NotSupportedException("La partitura no contiene ese beat");
+                
+            var elapsedTime = 0f;
+            for (var i = 0; i < Beats.Count(); i++)
+            {
+                if (Beats.ElementAt(i).Equals(beat))
+                    return elapsedTime;
+                
+                elapsedTime += TempoOfSheet.ToSeconds(Beats.ElementAt(i).Duration);
+            }
+
+            throw new NotSupportedException("No deberia de llegar aquí");
+        }
+
         private Beat BeatAtCurrentTime()
         {
+            if (HasEnded)
+                throw new NotSupportedException("No hay un beat actual en una partitura que ha terminado");
+            
             var elapsedTime = ForwardTime.ElapsedTimeInSecond;
             for (var i = 0; i < Beats.Count(); i++)
             {
@@ -52,9 +87,9 @@ namespace Runtime.Domain
 
         public static Sheet OneBeatSheet => new 
             (
-                Tempo.Allegro,
+                Tempo.OneBeatPerSecond,
                 new ForwardTime(),
-                new List<Beat> { Beat.Sound }
+                new List<Beat> { Beat.Rhythm }
             );
     }
 }

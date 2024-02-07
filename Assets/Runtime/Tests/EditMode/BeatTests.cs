@@ -20,5 +20,12 @@ namespace Runtime.Tests.EditMode
             sut.Play();
             sut.Play().Should().Be(Note.Silence.Sound);
         }
+
+        [Test]
+        public void HasNote()
+        { 
+            Beat.Sound.HasNote("Sound").Should().BeTrue();
+            Beat.Sound.HasNote("Silence").Should().BeFalse();
+        }
     }
 }

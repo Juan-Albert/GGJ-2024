@@ -5,6 +5,8 @@ using UnityEngine;
 public class BeatSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSelector audioSelector;
+    [SerializeField] private RhythmInput rhythmInput;
+    [SerializeField] private RhythmOutput rhythmInput;
         
     private Sheet sheet;
     private void Awake() => sheet = CreateSheet();
