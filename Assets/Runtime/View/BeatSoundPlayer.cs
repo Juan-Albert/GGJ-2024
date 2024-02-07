@@ -1,15 +1,19 @@
-﻿using System;
-using Runtime.Domain;
+﻿using Runtime.Domain;
 using UnityEngine;
 
 public class BeatSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSelector audioSelector;
-    [SerializeField] private RhythmInput rhythmInput;
-    [SerializeField] private RhythmOutput rhythmInput;
+    private RhythmInput rhythmInput;
+    private RhythmOutput rhythmOutput;
         
     private Sheet sheet;
-    private void Awake() => sheet = CreateSheet();
+    private void Awake()
+    {
+        rhythmInput = GetComponent<RhythmInput>();
+        rhythmOutput = GetComponent<RhythmOutput>();
+        sheet = CreateSheet();
+    }
 
     private void Update()
     {
@@ -18,7 +22,26 @@ public class BeatSoundPlayer : MonoBehaviour
         
         audioSelector.Play(sheet.Play());
         sheet.PassTime(Time.deltaTime);
+        var input = rhythmInput.CaptureInput();
+        if (!input.Equals(Note.Silence))
+        {
+            var result = sheet.IsOnTime(new Note(input));
+            rhythmOutput.Print(result);
+        }
     }
 
-    private static Sheet CreateSheet() => Sheet.OneBeatSheet;
+    private static Sheet CreateSheet()
+    {
+        return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+        {
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound"),
+            new Beat(1, "Sound")
+        });
+    }
 }

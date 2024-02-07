@@ -89,7 +89,7 @@ namespace Runtime.Domain
             (
                 Tempo.OneBeatPerSecond,
                 new ForwardTime(),
-                new List<Beat> { Beat.Rhythm }
+                new List<Beat> { Beat.Sound }
             );
     }
 }

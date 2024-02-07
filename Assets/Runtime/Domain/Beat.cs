@@ -33,6 +33,6 @@ namespace Runtime.Domain
 
         public static Beat Silence => new (1);
         public static Beat Sound => new (1, new Note("Sound"));
-        public static Beat Rhythm => new (1, new Note("Rhythm"));
     }
+    
 }
