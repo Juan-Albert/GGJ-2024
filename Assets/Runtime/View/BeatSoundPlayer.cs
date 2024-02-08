@@ -20,7 +20,7 @@ public class BeatSoundPlayer : MonoBehaviour
     private RhythmOutput rhythmOutput;
         
     private Sheet sheet;
-    private Instrument instrument;
+    private Musician _musician;
     private void Awake()
     {
         rhythmInput = GetComponent<RhythmInput>();
@@ -39,7 +39,7 @@ public class BeatSoundPlayer : MonoBehaviour
         if (!input.Equals(Note.Silence))
         {
             
-            var result = instrument.IsOnTime(new Note(input));
+            var result = _musician.IsOnTime(new Note(input));
             rhythmOutput.Print(result);
         }
     }
@@ -47,10 +47,10 @@ public class BeatSoundPlayer : MonoBehaviour
     private void CreateConcert()
     {
         sheet = CreateSheet();
-        instrument = CreateInstrument();
+        _musician = CreateInstrument();
     }
 
-    private Instrument CreateInstrument() => new(sheet);
+    private Musician CreateInstrument() => new(sheet);
 
     private static Sheet CreateSheet()
     {

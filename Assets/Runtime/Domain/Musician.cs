@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Runtime.Domain
 {
-    public class Instrument
+    public class Musician
     {
         private Sheet Sheet;
         private List<PlayedNote> playedNotes;
 
         private bool AlreadyPlayedAtBeat => playedNotes.Exists(n => n.PlayedAt == Sheet.CurrentBeat);
 
-        public Instrument(Sheet sheet)
+        public Musician(Sheet sheet)
         {
             Sheet = sheet;
             playedNotes = new List<PlayedNote>();

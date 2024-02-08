@@ -15,7 +15,7 @@ namespace Runtime.Tests.EditMode
         {
             var noteToBePlayed = new Note("Rhythm");
             var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []{new Beat(10, new Note("Rhythm"))});
-            var sut = new Instrument(sheet);
+            var sut = new Musician(sheet);
             
             sheet.PassTime(passedTime + 0.01f);
             sut.IsOnTime(noteToBePlayed).Should().Be(score);
@@ -26,7 +26,7 @@ namespace Runtime.Tests.EditMode
         {
             var noteToBePlayed = new Note("Silence");
             var sheet = Sheet.OneBeatSheet;
-            var sut = new Instrument(sheet);
+            var sut = new Musician(sheet);
 
             sheet.PassTime( 0.01f);
             sut.IsOnTime(noteToBePlayed).Should().Be(Rhythm.Result.Out);
