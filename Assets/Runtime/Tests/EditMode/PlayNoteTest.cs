@@ -4,7 +4,7 @@ using Runtime.Domain;
 
 namespace Runtime.Tests.EditMode
 {
-    public class InstrumentTests
+    public class PlayNoteTest
     {
         [Theory]
         [TestCase(0, Rhythm.Result.Perfect)]

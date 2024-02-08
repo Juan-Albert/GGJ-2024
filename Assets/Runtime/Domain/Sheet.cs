@@ -27,7 +27,7 @@ namespace Runtime.Domain
             ForwardTime = forwardTime;
         }
 
-        public string Play() => CurrentBeat.Play();
+        public string Read() => CurrentBeat.Play();
 
         public void PassTime(float elapsedTime)
         {

@@ -42,15 +42,15 @@ namespace Runtime.Tests.EditMode
         }
         
         [Test]
-        public void Play()
+        public void Read()
         {
             var beat = Beat.Sound;
             var otherBeat = new Beat(2 ,"otherSound");
             var sut = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new[] { beat, otherBeat });
 
-            sut.Play().Should().Be("Sound");
+            sut.Read().Should().Be("Sound");
             sut.PassTime(1.1f);
-            sut.Play().Should().Be("otherSound");
+            sut.Read().Should().Be("otherSound");
         }
     }
 }

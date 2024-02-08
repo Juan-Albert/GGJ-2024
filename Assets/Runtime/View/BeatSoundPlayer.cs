@@ -31,7 +31,7 @@ public class BeatSoundPlayer : MonoBehaviour
         if (sheet.HasEnded)
             CreateConcert();
         
-        audioSelector.Play(sheet.Play());
+        audioSelector.Play(sheet.Read());
         sheet.PassTime(Time.deltaTime);
         var input = rhythmInput.CaptureInput();
         if (!input.Equals(Note.Silence))
