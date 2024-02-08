@@ -38,8 +38,7 @@ public class BeatSoundPlayer : MonoBehaviour
         var input = rhythmInput.CaptureInput();
         if (!input.Equals(Note.Silence))
         {
-            
-            var result = _musician.IsOnTime(new Note(input));
+            var result = _musician.Play(new Note(input));
             rhythmOutput.Print(result);
         }
     }

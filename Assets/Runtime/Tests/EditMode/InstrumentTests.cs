@@ -18,7 +18,20 @@ namespace Runtime.Tests.EditMode
             var sut = new Musician(sheet);
             
             sheet.PassTime(passedTime + 0.01f);
-            sut.IsOnTime(noteToBePlayed).Should().Be(score);
+            sut.Play(noteToBePlayed).Should().Be(score);
+        }
+        
+        [Test]
+        public void PlayNote_OncePerBeat()
+        {
+            var noteToBePlayed = new Note("Rhythm");
+            var anotherNoteToBePlayed = new Note("Rhythm");
+            var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []{new Beat(5, new Note("Rhythm"))});
+            var sut = new Musician(sheet);
+
+            sheet.PassTime( 0.01f);
+            sut.Play(noteToBePlayed).Should().Be(Rhythm.Result.Perfect);
+            sut.Play(anotherNoteToBePlayed).Should().Be(Rhythm.Result.Out);
         }
         
         [Test]
@@ -29,7 +42,7 @@ namespace Runtime.Tests.EditMode
             var sut = new Musician(sheet);
 
             sheet.PassTime( 0.01f);
-            sut.IsOnTime(noteToBePlayed).Should().Be(Rhythm.Result.Out);
+            sut.Play(noteToBePlayed).Should().Be(Rhythm.Result.Out);
         }
     }
 }

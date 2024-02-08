@@ -16,24 +16,34 @@ namespace Runtime.Domain
             playedNotes = new List<PlayedNote>();
         }
 
-        /*public Rhythm.Result Play(Note note)
+        public Rhythm.Result Play(Note note)
         {
             if (Sheet.HasEnded)
                 throw new NotSupportedException("No se puede tocar cuando la partitura a terminado");
 
-            throw new NotImplementedException();
-        }*/
+            return AlreadyPlayedAtBeat ? Rhythm.Result.Out : SaveAndCheckPlayed(note);
+        }
 
-        public Rhythm.Result IsOnTime(Note note)
+        private Rhythm.Result SaveAndCheckPlayed(Note note)
+        {
+            var played = new PlayedNote(Sheet.CurrentTime, note, Sheet.CurrentBeat);
+            var result = IsOnTime(played);
+
+            if (result != Rhythm.Result.Out)
+                playedNotes.Add(played);
+            
+            return result;
+        }
+
+        private Rhythm.Result IsOnTime(PlayedNote played)
         {
             // hacerlo con el next beat tambien
-            if (Sheet.HasEnded || AlreadyPlayedAtBeat || SameNoteAsCurrentBeat())
+            if (Sheet.HasEnded || DifferentNoteAsCurrentBeat())
                 return Rhythm.Result.Out;
             
-            var played = new PlayedNote(Sheet.CurrentTime, note, Sheet.CurrentBeat);
             return Rhythm.BetterOf(played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt)));
 
-            bool SameNoteAsCurrentBeat() => !Sheet.CurrentBeat.HasNote(note);
+            bool DifferentNoteAsCurrentBeat() => !Sheet.CurrentBeat.HasNote(played.Played);
         }
     }
 }
