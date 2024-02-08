@@ -36,7 +36,7 @@ namespace Runtime.Domain
             if (!CurrentBeat.HasNote(note))
                 return OnTime.Result.Out;
             
-            var played = new PlayedNote(ForwardTime.ElapsedTimeInSecond, note);
+            var played = new PlayedNote(ForwardTime.ElapsedTimeInSecond, note, CurrentBeat);
             return played.OnTimeAt(CurrentTimeOf(CurrentBeat)); 
         }
 

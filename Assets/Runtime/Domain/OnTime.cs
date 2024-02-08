@@ -18,13 +18,13 @@ namespace Runtime.Domain
 
         public static Result OnTimeAt(this PlayedNote played, float currentTimeOfBeat)
         {
-            if (Mathf.Abs(currentTimeOfBeat - played.playedAt) <= PerfectTime)
+            if (Mathf.Abs(currentTimeOfBeat - played.When) <= PerfectTime)
                 return Result.Perfect;
 
-            if(Mathf.Abs(currentTimeOfBeat - played.playedAt) <= GreatTime)
+            if(Mathf.Abs(currentTimeOfBeat - played.When) <= GreatTime)
                 return Result.Great;
 
-            if(Mathf.Abs(currentTimeOfBeat - played.playedAt) <= GoodTime)
+            if(Mathf.Abs(currentTimeOfBeat - played.When) <= GoodTime)
                 return Result.Good;
 
             return Result.Out;

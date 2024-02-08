@@ -2,13 +2,15 @@
 {
     public readonly struct PlayedNote
     {
-        public readonly float playedAt;
-        public readonly Note note;
+        public float When { get; }
+        public Note Played { get; }
+        public Beat PlayedAt { get; }
 
-        public PlayedNote(float playedAt, Note note)
+        public PlayedNote(float when, Note played, Beat playedAt)
         {
-            this.playedAt = playedAt;
-            this.note = note;
+            When = when;
+            Played = played;
+            PlayedAt = playedAt;
         }
     }
 }
