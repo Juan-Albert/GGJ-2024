@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class LogOutput : MonoBehaviour, RhythmOutput
 {
-    public void Print(OnTime.Result result)
+    public void Print(Rhythm.Result result)
     {
         switch (result)
         {
-            case OnTime.Result.Out:
+            case Rhythm.Result.Out:
                 Debug.Log("LAMENTABLE");
                 break;
-            case OnTime.Result.Good:
+            case Rhythm.Result.Good:
                 Debug.Log("BIEEEEN");
                 break;
-            case OnTime.Result.Great:
+            case Rhythm.Result.Great:
                 Debug.Log("INCREIBLEE");
                 break;
-            case OnTime.Result.Perfect:
+            case Rhythm.Result.Perfect:
                 Debug.Log("OH MY BOY IS AMAZIIIIING");
                 break;
             default:

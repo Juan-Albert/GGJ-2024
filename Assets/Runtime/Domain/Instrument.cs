@@ -8,33 +8,32 @@ namespace Runtime.Domain
         private Sheet Sheet;
         private List<PlayedNote> playedNotes;
 
+        private bool AlreadyPlayedAtBeat => playedNotes.Exists(n => n.PlayedAt == Sheet.CurrentBeat);
+
         public Instrument(Sheet sheet)
         {
             Sheet = sheet;
             playedNotes = new List<PlayedNote>();
         }
 
-        public OnTime.Result Play(Note note)
+        /*public Rhythm.Result Play(Note note)
         {
             if (Sheet.HasEnded)
                 throw new NotSupportedException("No se puede tocar cuando la partitura a terminado");
 
             throw new NotImplementedException();
-        }
-        
-        public OnTime.Result IsOnTime(Note note)
+        }*/
+
+        public Rhythm.Result IsOnTime(Note note)
         {
             // hacerlo con el next beat tambien
-            if (Sheet.HasEnded)
-                return OnTime.Result.Out;
-            
-            if (!Sheet.CurrentBeat.HasNote(note))
-                return OnTime.Result.Out;
-            
-            //Se ha tocado ya
+            if (Sheet.HasEnded || AlreadyPlayedAtBeat || SameNoteAsCurrentBeat())
+                return Rhythm.Result.Out;
             
             var played = new PlayedNote(Sheet.CurrentTime, note, Sheet.CurrentBeat);
-            return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt)); 
+            return Rhythm.BetterOf(played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt)));
+
+            bool SameNoteAsCurrentBeat() => !Sheet.CurrentBeat.HasNote(note);
         }
     }
 }

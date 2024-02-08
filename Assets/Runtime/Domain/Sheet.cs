@@ -10,7 +10,7 @@ namespace Runtime.Domain
         public Tempo TempoOfSheet { get; }
         public IEnumerable<Beat> Beats { get; }
 
-        public float CurrentTime => ForwardTime.ElapsedTimeInSecond
+        public float CurrentTime => ForwardTime.ElapsedTimeInSecond;
         public Beat CurrentBeat => HasEnded ? Beat.Silence : BeatAtCurrentTime();
         public Beat NextBeat => throw new NotImplementedException();
         public bool HasEnded => ForwardTime.ElapsedTimeInSecond >= TotalSheetDuration;
@@ -28,7 +28,6 @@ namespace Runtime.Domain
         }
 
         public string Play() => CurrentBeat.Play();
-
 
         public void PassTime(float elapsedTime)
         {

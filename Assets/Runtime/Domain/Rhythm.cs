@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Runtime.Domain
 {
-    public static class OnTime
+    public static class Rhythm
     {
         public enum Result
         {
-            Out,
-            Good,
-            Great,
-            Perfect
+            Out = 0,
+            Good = 1,
+            Great = 2,
+            Perfect = 3
         }
 
         public const float GoodTime = 0.5f;
@@ -30,5 +32,6 @@ namespace Runtime.Domain
             return Result.Out;
         }
 
+        public static Result BetterOf(params Result[] results) => results.Max();
     }
 }

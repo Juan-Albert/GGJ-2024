@@ -1,8 +1,10 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
+
 //Si ya se tocado una nota on time con un beat no se puede volver a tocar
 //Si no se toca una nota es un fallo
+//La partitura tiene un resultado en funcion de lo bien que se haya tocado
 //los fallos se resuelven al final de la partitura?
 //tener una sheet para el ritmo y otra para lo que hay que tocar
 //Crear las notas del juego
@@ -18,27 +20,37 @@ public class BeatSoundPlayer : MonoBehaviour
     private RhythmOutput rhythmOutput;
         
     private Sheet sheet;
+    private Instrument instrument;
     private void Awake()
     {
         rhythmInput = GetComponent<RhythmInput>();
         rhythmOutput = GetComponent<RhythmOutput>();
-        sheet = CreateSheet();
+        CreateConcert();
     }
 
     private void Update()
     {
         if (sheet.HasEnded)
-            sheet = CreateSheet();
+            CreateConcert();
         
         audioSelector.Play(sheet.Play());
         sheet.PassTime(Time.deltaTime);
         var input = rhythmInput.CaptureInput();
         if (!input.Equals(Note.Silence))
         {
-            var result = sheet.IsOnTime(new Note(input));
+            
+            var result = instrument.IsOnTime(new Note(input));
             rhythmOutput.Print(result);
         }
     }
+
+    private void CreateConcert()
+    {
+        sheet = CreateSheet();
+        instrument = CreateInstrument();
+    }
+
+    private Instrument CreateInstrument() => new(sheet);
 
     private static Sheet CreateSheet()
     {

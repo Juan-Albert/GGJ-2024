@@ -2,5 +2,5 @@
 
 internal interface RhythmOutput
 {
-    void Print(OnTime.Result result);
+    void Print(Rhythm.Result result);
 }
