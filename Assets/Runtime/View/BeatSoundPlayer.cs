@@ -1,11 +1,9 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
-
-//Si ya se tocado una nota on time con un beat no se puede volver a tocar
-//Si no se toca una nota es un fallo
 //La partitura tiene un resultado en funcion de lo bien que se haya tocado
-//los fallos se resuelven al final de la partitura?
+//  Si no se toca una nota es un fallo en el resultado de la partitura
+//  los fallos se resuelven al final de la partitura?
 //tener una sheet para el ritmo y otra para lo que hay que tocar
 //Crear las notas del juego
 //Crear los inputs disponibles
