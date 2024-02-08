@@ -9,11 +9,13 @@ namespace Runtime.Domain
         public ForwardTime ForwardTime { get; }
         public Tempo TempoOfSheet { get; }
         public IEnumerable<Beat> Beats { get; }
-        
+
+        public float CurrentTime => ForwardTime.ElapsedTimeInSecond
         public Beat CurrentBeat => HasEnded ? Beat.Silence : BeatAtCurrentTime();
         public Beat NextBeat => throw new NotImplementedException();
         public bool HasEnded => ForwardTime.ElapsedTimeInSecond >= TotalSheetDuration;
         public float TotalSheetDuration => Beats.Sum(b => TempoOfSheet.ToSeconds(b.Duration));
+
 
         public Sheet(Tempo tempoOfSheet, ForwardTime forwardTime, IEnumerable<Beat> beats)
         {
@@ -26,19 +28,7 @@ namespace Runtime.Domain
         }
 
         public string Play() => CurrentBeat.Play();
-        
-        public OnTime.Result IsOnTime(Note note)
-        {
-            // hacerlo con el next beat tambien
-            if (HasEnded)
-                return OnTime.Result.Out;
-            
-            if (!CurrentBeat.HasNote(note))
-                return OnTime.Result.Out;
-            
-            var played = new PlayedNote(ForwardTime.ElapsedTimeInSecond, note, CurrentBeat);
-            return played.OnTimeAt(CurrentTimeOf(CurrentBeat)); 
-        }
+
 
         public void PassTime(float elapsedTime)
         {
@@ -48,7 +38,7 @@ namespace Runtime.Domain
             ForwardTime.PassTime(elapsedTime);
         }
 
-        private float CurrentTimeOf(Beat beat)
+        public float StartTimeOf(Beat beat)
         {
             if (!Beats.Contains(beat))
                 throw new NotSupportedException("La partitura no contiene ese beat");
@@ -83,6 +73,7 @@ namespace Runtime.Domain
         }
 
         public static Sheet Empty => new (new Tempo(1), new ForwardTime(),new List<Beat>());
+
 
         public static Sheet OneBeatSheet => new 
             (
