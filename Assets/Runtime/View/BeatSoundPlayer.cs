@@ -2,13 +2,13 @@
 using UnityEngine;
 
 
-//El resultado del Ritmo tiene que estar basado en el tempo de la partitura
-//Crear las notas del juego
 //Crear los inputs disponibles
+//Crear las notas del juego
 //Animar el payaso en funcion del output
-//La partitura tiene un resultado en funcion de lo bien que se haya tocado
-//  Si no se toca una nota es un fallo en el resultado de la partitura
-//  los fallos se resuelven al final de la partitura?
+//El jugador tiene X intentos
+//Cuando se falla una nota se pierde un intento
+//Cuando se falla una nota se tiene un tiempo de invulnerabilidad
+//Cuando se pierden todos los intentos se pierde la partida
 //Hacer un evento de cuando suena un beat de la sheet de ritmo
 //Reaccionar al evento con animaciones y efectos en la vista
 
