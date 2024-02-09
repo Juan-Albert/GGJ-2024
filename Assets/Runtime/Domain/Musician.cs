@@ -50,7 +50,7 @@ namespace Runtime.Domain
             if (Sheet.HasEnded || DifferentNoteAsCurrentBeat())
                 return Rhythm.Result.Out;
             
-            return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt));
+            return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt), Sheet.TempoOfSheet);
 
             bool DifferentNoteAsCurrentBeat() => !Sheet.CurrentBeat.HasNote(played.Played);
         }

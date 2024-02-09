@@ -18,8 +18,8 @@ namespace Runtime.Domain
 
         public float ToSeconds(float tempoUnits)
         {
-            if(tempoUnits <= 0f)
-                throw new NotSupportedException("la duracion de un tempo no puede ser igual o menor a cero");
+            if(tempoUnits < 0f)
+                throw new NotSupportedException("la duracion de un tempo no puede ser menor a cero");
 
             return tempoUnits * SecondsPerBeat;
         }

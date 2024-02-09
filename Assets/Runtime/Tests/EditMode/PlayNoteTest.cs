@@ -37,13 +37,13 @@ namespace Runtime.Tests.EditMode
         [TestCase(Rhythm.PerfectTime, Rhythm.Result.Great)]
         [TestCase(Rhythm.GreatTime, Rhythm.Result.Good)]
         [TestCase(Rhythm.GoodTime, Rhythm.Result.Out)]
-        public void PlayedNote_OnTime(float passedTime, Rhythm.Result score)
+        public void PlayedNote_OnTime(float resultTempo, Rhythm.Result score)
         {
             var noteToBePlayed = new Note("Rhythm");
             var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []{new Beat(10, new Note("Rhythm"))});
             var sut = new Musician(sheet);
             
-            sheet.PassTime(passedTime + 0.01f);
+            sheet.PassTime(Tempo.OneBeatPerSecond.ToSeconds(resultTempo) + 0.01f);
             sut.Play(noteToBePlayed).Should().Be(score);
         }
         
@@ -52,7 +52,7 @@ namespace Runtime.Tests.EditMode
         [TestCase(Rhythm.PerfectTime, Rhythm.Result.Great)]
         [TestCase(Rhythm.GreatTime, Rhythm.Result.Good)]
         [TestCase(Rhythm.GoodTime, Rhythm.Result.Out)]
-        public void PlayedNote_BeforeBeat_IsOnTime(float resultTime, Rhythm.Result score)
+        public void PlayedNote_BeforeBeat_IsOnTime(float resultTempo, Rhythm.Result score)
         {
             var noteToBePlayed = new Note("Rhythm");
             var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
@@ -62,7 +62,8 @@ namespace Runtime.Tests.EditMode
             });
             var sut = new Musician(sheet);
 
-            var elapsedTime = Tempo.OneBeatPerSecond.ToSeconds(2) - resultTime - 0.01f;
+            var elapsedTime = Tempo.OneBeatPerSecond.ToSeconds(2) - 
+                              Tempo.OneBeatPerSecond.ToSeconds(resultTempo) - 0.01f;
             sheet.PassTime(elapsedTime);
             sut.Play(noteToBePlayed).Should().Be(score);
         }
