@@ -1,6 +1,6 @@
 ﻿using Runtime.Domain;
 
-internal interface RhythmOutput
+internal interface MusicianOutput
 {
     void Print(Rhythm.Result result);
 }

@@ -1,6 +1,6 @@
 ﻿using Runtime.Domain;
 
-internal interface RhythmInput
+internal interface MusicianInput
 {
     Note CaptureInput();
 }
