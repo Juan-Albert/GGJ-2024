@@ -8,7 +8,7 @@ namespace Runtime.Domain
         private Sheet Sheet;
         private List<PlayedNote> playedNotes;
 
-        private bool AlreadyPlayedAtBeat => playedNotes.Exists(n => n.PlayedAt == Sheet.CurrentBeat);
+        private bool AlreadyPlayedAt(Beat beat) => playedNotes.Exists(n => n.PlayedAt == beat);
 
         public Musician(Sheet sheet)
         {
@@ -21,12 +21,22 @@ namespace Runtime.Domain
             if (Sheet.HasEnded)
                 throw new NotSupportedException("No se puede tocar cuando la partitura a terminado");
 
-            return AlreadyPlayedAtBeat ? Rhythm.Result.Out : SaveAndCheckPlayed(note);
+            return Rhythm.BetterOf(CheckCurrentBeat(), CheckNextBeat());
+
+            Rhythm.Result CheckCurrentBeat() 
+                => AlreadyPlayedAt(Sheet.CurrentBeat)  ?
+                Rhythm.Result.Out :
+                SaveAndCheckPlayed(note, Sheet.CurrentBeat);
+            
+            Rhythm.Result CheckNextBeat() 
+                => !Sheet.HasNext || AlreadyPlayedAt(Sheet.NextBeat) ?
+                Rhythm.Result.Out :
+                SaveAndCheckPlayed(note, Sheet.NextBeat);
         }
 
-        private Rhythm.Result SaveAndCheckPlayed(Note note)
+        private Rhythm.Result SaveAndCheckPlayed(Note note, Beat beat)
         {
-            var played = new PlayedNote(Sheet.CurrentTime, note, Sheet.CurrentBeat);
+            var played = new PlayedNote(Sheet.CurrentTime, note, beat);
             var result = IsOnTime(played);
 
             if (result != Rhythm.Result.Out)
@@ -37,11 +47,10 @@ namespace Runtime.Domain
 
         private Rhythm.Result IsOnTime(PlayedNote played)
         {
-            // hacerlo con el next beat tambien
             if (Sheet.HasEnded || DifferentNoteAsCurrentBeat())
                 return Rhythm.Result.Out;
             
-            return Rhythm.BetterOf(played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt)));
+            return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt));
 
             bool DifferentNoteAsCurrentBeat() => !Sheet.CurrentBeat.HasNote(played.Played);
         }

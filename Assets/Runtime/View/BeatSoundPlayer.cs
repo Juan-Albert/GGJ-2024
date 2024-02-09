@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-//tener una sheet para el ritmo y otra para lo que hay que tocar
+//El resultado del Ritmo tiene que estar basado en el tempo de la partitura
 //Crear las notas del juego
 //Crear los inputs disponibles
 //Animar el payaso en funcion del output

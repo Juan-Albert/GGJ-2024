@@ -30,6 +30,15 @@ namespace Runtime.Tests.EditMode
         }
 
         [Test]
+        public void NextBeat()
+        {
+            var beat = new Beat(1);
+            var otherBeat = new Beat(1);
+            var sut = new Sheet(new Tempo(1), new ForwardTime(), new[] { beat, otherBeat });
+            sut.NextBeat.Should().Be(otherBeat);
+        }
+
+        [Test]
         public void AsTimeGoesBy_BeatChange()
         {
             var beat = new Beat(1);
