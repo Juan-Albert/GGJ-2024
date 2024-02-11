@@ -24,4 +24,9 @@ public class LogOutput : MonoBehaviour, MusicianOutput
                 throw new NotSupportedException("No existe ese resultado");
         }
     }
+
+    public void Print(Note note, Rhythm.Result result)
+    {
+        Print(result);
+    }
 }

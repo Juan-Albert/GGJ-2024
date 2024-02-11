@@ -5605,8 +5605,9 @@ GameObject:
   - component: {fileID: 1635731537}
   - component: {fileID: 1635731536}
   - component: {fileID: 1635731535}
-  - component: {fileID: 1635731539}
   - component: {fileID: 1635731538}
+  - component: {fileID: 1635731539}
+  - component: {fileID: 1635731540}
   m_Layer: 0
   m_Name: Beater
   m_TagString: Untagged
@@ -5772,9 +5773,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 1635731532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5411a511084063bb48e19c45f15f95, type: 3}
+  m_Script: {fileID: 11500000, guid: 136d447bb4c64a69936950667eaddd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clownRenderer: {fileID: 2097963424}
+  ballSprite: {fileID: 21300000, guid: d1c04a3604f039e419e683be57038c51, type: 3}
+  handstandSprite: {fileID: 21300000, guid: 3f42e86f54a6cfa4c98873d2ad9cb482, type: 3}
+  juggleSprite: {fileID: 21300000, guid: eb7af51817cfbba47950a8a14e7d4dd5, type: 3}
+  trumpetSprite: {fileID: 21300000, guid: ac25754ae497ea04fbd02664e281fdd4, type: 3}
+  idleSprite: {fileID: 21300000, guid: 5171a1d83dadb45458c2601986aee46e, type: 3}
+  failSprite: {fileID: 21300000, guid: 7001a8cb546752e4087ca846d71d7695, type: 3}
+  perfectVfx: {fileID: 2031189317611104611, guid: f9d8847f45744194db7820337f1779d2, type: 3}
+  greatVfx: {fileID: 2134255264165117473, guid: 822b48f4fcffa4548850a35323a225d8, type: 3}
+  goodVfx: {fileID: 4768338185328599166, guid: d1e5baa41258c124c95e7601d495b766, type: 3}
+  outVfx: {fileID: 4768338185328599166, guid: 3121417518b16cb498a3793c66628860, type: 3}
+--- !u!114 &1635731540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635731532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5287c30ccb347da9351218587243801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clownRenderer: {fileID: 45515078}
+  ballSprite: {fileID: 21300000, guid: d1c04a3604f039e419e683be57038c51, type: 3}
+  handstandSprite: {fileID: 21300000, guid: 3f42e86f54a6cfa4c98873d2ad9cb482, type: 3}
+  juggleSprite: {fileID: 21300000, guid: eb7af51817cfbba47950a8a14e7d4dd5, type: 3}
+  trumpetSprite: {fileID: 21300000, guid: ac25754ae497ea04fbd02664e281fdd4, type: 3}
+  idleSprite: {fileID: 21300000, guid: 5171a1d83dadb45458c2601986aee46e, type: 3}
 --- !u!1 &1723568342
 GameObject:
   m_ObjectHideFlags: 0
@@ -6215,7 +6245,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 3f42e86f54a6cfa4c98873d2ad9cb482, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5171a1d83dadb45458c2601986aee46e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

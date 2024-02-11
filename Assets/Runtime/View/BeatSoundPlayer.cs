@@ -1,10 +1,8 @@
-﻿using Runtime.Domain;
+﻿using System.Linq;
+using Runtime.Domain;
 using UnityEngine;
 
-
-//Crear los inputs disponibles
-//Crear las notas del juego
-//Animar el payaso en funcion del output
+//Poner el idle despues de animar en funcion del tempo
 //El jugador tiene X intentos
 //Cuando se falla una nota se pierde un intento
 //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
@@ -15,42 +13,60 @@ using UnityEngine;
 public class BeatSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSelector audioSelector;
-    private MusicianInput _musicianInput;
-    private MusicianOutput _musicianOutput;
+    private MusicianInput musicianInput;
+    private MusicianOutput directorOutput;
+    private MusicianOutput musicianOutput;
         
-    private Sheet sheet;
+    private Sheet music;
     private Sheet rhythm;
     private Musician musician;
     private void Awake()
     {
-        _musicianInput = GetComponent<MusicianInput>();
-        _musicianOutput = GetComponent<MusicianOutput>();
+        directorOutput = GetComponent<Director>();
+        musicianOutput = GetComponent<Clown>();
+        musicianInput = GetComponent<MusicianInput>();
         CreateConcert();
     }
 
     private void Update()
     {
-        if (sheet.HasEnded)
+        if (music.HasEnded)
             CreateConcert();
         
         PlayRhythm();
-        CheckMusicianPlay();
+        PlayMusic();
     }
 
     void PlayRhythm()
     {
         rhythm.PassTime(Time.deltaTime);
-        sheet.PassTime(Time.deltaTime);
+        music.PassTime(Time.deltaTime);
         audioSelector.Play(rhythm.Read());
+    }
+
+    private void PlayMusic()
+    {
+        ShowDirector();
+        CheckMusicianPlay();
+    }
+
+    private void ShowDirector()
+    {
+        var noteInSheet = music.Read();
+        if (!noteInSheet.Equals(Note.Silence))
+        {
+            directorOutput.Print(noteInSheet, Rhythm.Result.Perfect);
+        }
     }
 
     private void CheckMusicianPlay()
     {
-        var input = _musicianInput.CaptureInput();
+        var input = musicianInput.CaptureInput();
         if (!input.Equals(Note.Silence))
         {
-            var result = musician.Play(new Note(input));
-            _musicianOutput.Print(result);
+            var played = new Note(input);
+            var result = musician.Play(played);
+            musicianOutput.Print(played, result);
         }
     }
 
@@ -59,25 +75,25 @@ public class BeatSoundPlayer : MonoBehaviour
 
     private void CreateConcert()
     {
-        sheet = CreateSheet();
+        music = CreateSheet();
         rhythm = CreateSheet();
         musician = CreateInstrument();
     }
     
-    private Musician CreateInstrument() => new(sheet);
+    private Musician CreateInstrument() => new(music);
 
     private static Sheet CreateSheet()
     {
         return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
         {
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound"),
-            new Beat(1, "Sound")
+            new Beat(1, Note.Ball),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Juggle),
+            new Beat(1, Note.Trumpet),
+            new Beat(1, Note.Ball),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Juggle),
+            new Beat(1, Note.Trumpet)
         });
     }
 

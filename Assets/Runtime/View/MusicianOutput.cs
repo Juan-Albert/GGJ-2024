@@ -2,5 +2,5 @@
 
 internal interface MusicianOutput
 {
-    void Print(Rhythm.Result result);
+    void Print(Note note, Rhythm.Result result);
 }
