@@ -1,28 +1,30 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
-//La partitura tiene un resultado en funcion de lo bien que se haya tocado
-//  Si no se toca una nota es un fallo en el resultado de la partitura
-//  los fallos se resuelven al final de la partitura?
-//tener una sheet para el ritmo y otra para lo que hay que tocar
-//Crear las notas del juego
+
 //Crear los inputs disponibles
+//Crear las notas del juego
 //Animar el payaso en funcion del output
+//El jugador tiene X intentos
+//Cuando se falla una nota se pierde un intento
+//Cuando se falla una nota se tiene un tiempo de invulnerabilidad
+//Cuando se pierden todos los intentos se pierde la partida
 //Hacer un evento de cuando suena un beat de la sheet de ritmo
 //Reaccionar al evento con animaciones y efectos en la vista
 
 public class BeatSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSelector audioSelector;
-    private RhythmInput rhythmInput;
-    private RhythmOutput rhythmOutput;
+    private MusicianInput _musicianInput;
+    private MusicianOutput _musicianOutput;
         
     private Sheet sheet;
-    private Musician _musician;
+    private Sheet rhythm;
+    private Musician musician;
     private void Awake()
     {
-        rhythmInput = GetComponent<RhythmInput>();
-        rhythmOutput = GetComponent<RhythmOutput>();
+        _musicianInput = GetComponent<MusicianInput>();
+        _musicianOutput = GetComponent<MusicianOutput>();
         CreateConcert();
     }
 
@@ -31,22 +33,37 @@ public class BeatSoundPlayer : MonoBehaviour
         if (sheet.HasEnded)
             CreateConcert();
         
-        audioSelector.Play(sheet.Play());
+        PlayRhythm();
+        CheckMusicianPlay();
+    }
+
+    void PlayRhythm()
+    {
+        rhythm.PassTime(Time.deltaTime);
         sheet.PassTime(Time.deltaTime);
-        var input = rhythmInput.CaptureInput();
+        audioSelector.Play(rhythm.Read());
+    }
+
+    private void CheckMusicianPlay()
+    {
+        var input = _musicianInput.CaptureInput();
         if (!input.Equals(Note.Silence))
         {
-            var result = _musician.Play(new Note(input));
-            rhythmOutput.Print(result);
+            var result = musician.Play(new Note(input));
+            _musicianOutput.Print(result);
         }
     }
+
+
+    #region Builders
 
     private void CreateConcert()
     {
         sheet = CreateSheet();
-        _musician = CreateInstrument();
+        rhythm = CreateSheet();
+        musician = CreateInstrument();
     }
-
+    
     private Musician CreateInstrument() => new(sheet);
 
     private static Sheet CreateSheet()
@@ -63,4 +80,6 @@ public class BeatSoundPlayer : MonoBehaviour
             new Beat(1, "Sound")
         });
     }
+
+    #endregion
 }

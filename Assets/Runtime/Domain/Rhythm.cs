@@ -18,15 +18,15 @@ namespace Runtime.Domain
         public const float GreatTime = .35f;
         public const float PerfectTime = .2f;
 
-        public static Result OnTimeAt(this PlayedNote played, float currentTimeOfBeat)
+        public static Result OnTimeAt(this PlayedNote played, float currentTimeOfBeat, Tempo tempo)
         {
-            if (Mathf.Abs(currentTimeOfBeat - played.When) <= PerfectTime)
+            if (Mathf.Abs(currentTimeOfBeat - played.When) <= tempo.ToSeconds(PerfectTime))
                 return Result.Perfect;
 
-            if(Mathf.Abs(currentTimeOfBeat - played.When) <= GreatTime)
+            if(Mathf.Abs(currentTimeOfBeat - played.When) <= tempo.ToSeconds(GreatTime))
                 return Result.Great;
 
-            if(Mathf.Abs(currentTimeOfBeat - played.When) <= GoodTime)
+            if(Mathf.Abs(currentTimeOfBeat - played.When) <= tempo.ToSeconds(GoodTime))
                 return Result.Good;
 
             return Result.Out;

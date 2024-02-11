@@ -11,8 +11,9 @@ namespace Runtime.Domain
         public IEnumerable<Beat> Beats { get; }
 
         public float CurrentTime => ForwardTime.ElapsedTimeInSecond;
-        public Beat CurrentBeat => HasEnded ? Beat.Silence : BeatAtCurrentTime();
-        public Beat NextBeat => throw new NotImplementedException();
+        public Beat CurrentBeat => HasEnded ? Beat.Silence : Beats.ElementAt(GetCurrentBeatIndex());
+        public bool HasNext => Beats.Last() != CurrentBeat;
+        public Beat NextBeat => HasNext ? Beats.ElementAt(GetCurrentBeatIndex() + 1) : Beat.Silence;
         public bool HasEnded => ForwardTime.ElapsedTimeInSecond >= TotalSheetDuration;
         public float TotalSheetDuration => Beats.Sum(b => TempoOfSheet.ToSeconds(b.Duration));
 
@@ -27,7 +28,7 @@ namespace Runtime.Domain
             ForwardTime = forwardTime;
         }
 
-        public string Play() => CurrentBeat.Play();
+        public string Read() => CurrentBeat.Play();
 
         public void PassTime(float elapsedTime)
         {
@@ -54,21 +55,21 @@ namespace Runtime.Domain
             throw new NotSupportedException("No deberia de llegar aquí");
         }
 
-        private Beat BeatAtCurrentTime()
+        private int GetCurrentBeatIndex()
         {
-            if (HasEnded)
-                throw new NotSupportedException("No hay un beat actual en una partitura que ha terminado");
-            
             var elapsedTime = ForwardTime.ElapsedTimeInSecond;
             for (var i = 0; i < Beats.Count(); i++)
             {
                 elapsedTime -= TempoOfSheet.ToSeconds(Beats.ElementAt(i).Duration);
 
                 if (elapsedTime <= 0f)
-                    return Beats.ElementAt(i);
+                {
+                    return i;
+                }
             }
-
+            
             throw new NotSupportedException("No deberia de llegar aquí");
+
         }
 
         public static Sheet Empty => new (new Tempo(1), new ForwardTime(),new List<Beat>());

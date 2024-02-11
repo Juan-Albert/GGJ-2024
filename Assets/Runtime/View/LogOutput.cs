@@ -2,7 +2,7 @@
 using Runtime.Domain;
 using UnityEngine;
 
-public class LogOutput : MonoBehaviour, RhythmOutput
+public class LogOutput : MonoBehaviour, MusicianOutput
 {
     public void Print(Rhythm.Result result)
     {
