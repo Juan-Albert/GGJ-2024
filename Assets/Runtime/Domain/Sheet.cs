@@ -17,7 +17,6 @@ namespace Runtime.Domain
         public bool HasEnded => ForwardTime.ElapsedTimeInSecond >= TotalSheetDuration;
         public float TotalSheetDuration => Beats.Sum(b => TempoOfSheet.ToSeconds(b.Duration));
 
-
         public Sheet(Tempo tempoOfSheet, ForwardTime forwardTime, IEnumerable<Beat> beats)
         {
             if (beats == null)
@@ -69,11 +68,9 @@ namespace Runtime.Domain
             }
             
             throw new NotSupportedException("No deberia de llegar aquí");
-
         }
 
         public static Sheet Empty => new (new Tempo(1), new ForwardTime(),new List<Beat>());
-
 
         public static Sheet OneBeatSheet => new 
             (

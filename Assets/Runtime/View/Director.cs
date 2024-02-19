@@ -14,10 +14,10 @@ public class Director : MonoBehaviour, MusicianOutput
     [SerializeField] private Sprite idleSprite;
     
     
-    public void Print(Note note, Rhythm.Result result)
+    public async void Print(Note note, Rhythm.Result result)
     {
         PrintClownSprite();
-        PrintIdleAfterDelay(); //Si le hago await tambien tengo que hacerselo al padre y asi sucesivamente
+        await PrintIdleAfterDelay(); 
 
         void PrintClownSprite()
         {

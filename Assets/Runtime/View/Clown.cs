@@ -26,7 +26,7 @@ public class Clown : MonoBehaviour, MusicianOutput
         PrintResult(result);
     }
 
-    private void PrintNote(Note note, Rhythm.Result result)
+    private async void PrintNote(Note note, Rhythm.Result result)
     {
         if (result.Equals(Rhythm.Result.Out))
         {
@@ -37,7 +37,8 @@ public class Clown : MonoBehaviour, MusicianOutput
             PrintClownSprite();
         }
 
-        PrintIdleAfterDelay(); //Si le hago await tambien tengo que hacerselo al padre y asi sucesivamente
+        await PrintIdleAfterDelay();
+        return;
 
         void PrintClownSprite()
         {
