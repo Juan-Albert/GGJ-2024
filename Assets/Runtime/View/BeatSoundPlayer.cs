@@ -71,7 +71,7 @@ public class BeatSoundPlayer : MonoBehaviour
     }
 
 
-    #region Builders
+    #region Factories
 
     private void CreateConcert()
     {
@@ -82,7 +82,39 @@ public class BeatSoundPlayer : MonoBehaviour
     
     private Musician CreateInstrument() => new(music);
 
-    private static Sheet CreateSheet()
+    private static Sheet CreateSheet() => OneNoteSheet();
+
+    private static Sheet OneNoteSheet()
+    {
+        return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+        {
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Handstand),
+        });
+    }
+
+    private static Sheet TwoNotesSheet()
+    {
+        return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+        {
+            new Beat(1, Note.Ball),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Ball),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Ball),
+            new Beat(1, Note.Handstand),
+            new Beat(1, Note.Ball),
+            new Beat(1, Note.Handstand),
+        });
+    }
+    
+    private static Sheet FourNotesSheet()
     {
         return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
         {
