@@ -12,8 +12,9 @@ public class Director : MonoBehaviour, MusicianOutput
     [SerializeField] private Sprite juggleSprite;
     [SerializeField] private Sprite trumpetSprite;
     [SerializeField] private Sprite idleSprite;
-    
-    
+
+    private Tempo _tempo;
+
     public async void Print(Note note, Rhythm.Result result)
     {
         PrintClownSprite();
@@ -36,9 +37,12 @@ public class Director : MonoBehaviour, MusicianOutput
         }
     }
 
+    public void BeOnTime(Tempo tempo) => _tempo = tempo;
+
     private async Task PrintIdleAfterDelay()
     {
-        await Task.Delay(300);
+        var waitInMilliseconds = Mathf.FloorToInt(_tempo.ToSeconds(.3f) * 1000);
+        await Task.Delay(waitInMilliseconds);
         clownRenderer.sprite = idleSprite;
     }
 }

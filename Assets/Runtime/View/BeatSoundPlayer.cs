@@ -2,7 +2,6 @@
 using Runtime.Domain;
 using UnityEngine;
 
-//Poner el idle despues de animar en funcion del tempo
 //El jugador tiene X intentos
 //Cuando se falla una nota se pierde un intento
 //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
@@ -78,6 +77,8 @@ public class BeatSoundPlayer : MonoBehaviour
         music = CreateSheet();
         rhythm = CreateSheet();
         musician = CreateInstrument();
+        musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
+        directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
     }
     
     private Musician CreateInstrument() => new(music);

@@ -19,12 +19,15 @@ public class Clown : MonoBehaviour, MusicianOutput
     [SerializeField] private ParticleSystem goodVfx;
     [SerializeField] private ParticleSystem outVfx;
     
+    private Tempo _tempo;
     
     public void Print(Note note, Rhythm.Result result)
     {
         PrintNote(note, result);
         PrintResult(result);
     }
+
+    public void BeOnTime(Tempo tempo) => _tempo = tempo;
 
     private async void PrintNote(Note note, Rhythm.Result result)
     {
@@ -59,7 +62,8 @@ public class Clown : MonoBehaviour, MusicianOutput
 
     private async Task PrintIdleAfterDelay()
     {
-        await Task.Delay(300);
+        var waitInMilliseconds = Mathf.FloorToInt(_tempo.ToSeconds(.3f) * 1000);
+        await Task.Delay(waitInMilliseconds);
         clownRenderer.sprite = idleSprite;
     }
 
