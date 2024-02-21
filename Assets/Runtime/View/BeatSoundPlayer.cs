@@ -2,15 +2,15 @@
 using Runtime.Domain;
 using UnityEngine;
 
-//El jugador tiene X intentos
 //Cuando se falla una nota se pierde un intento
 //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
 //Cuando se pierden todos los intentos se pierde la partida
-//Hacer un evento de cuando suena un beat de la sheet de ritmo
-//Reaccionar al evento con animaciones y efectos en la vista
 
 public class BeatSoundPlayer : MonoBehaviour
 {
+    public delegate void OnRhythmBeat();
+    public static event OnRhythmBeat onRhythmBeat;
+    
     [SerializeField] private AudioSelector audioSelector;
     private MusicianInput musicianInput;
     private MusicianOutput directorOutput;
@@ -40,7 +40,16 @@ public class BeatSoundPlayer : MonoBehaviour
     {
         rhythm.PassTime(Time.deltaTime);
         music.PassTime(Time.deltaTime);
-        audioSelector.Play(rhythm.Read());
+        PlayBeat();
+
+        void PlayBeat()
+        {
+            var beatSound = rhythm.Read();
+            audioSelector.Play(beatSound);
+            
+            if (beatSound != Note.Silence.Sound)
+                onRhythmBeat?.Invoke();
+        }
     }
 
     private void PlayMusic()
@@ -69,7 +78,6 @@ public class BeatSoundPlayer : MonoBehaviour
         }
     }
 
-
     #region Factories
 
     private void CreateConcert()
@@ -80,10 +88,11 @@ public class BeatSoundPlayer : MonoBehaviour
         musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
         directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
     }
-    
+
     private Musician CreateInstrument() => new(music);
 
     private static Sheet CreateSheet() => OneNoteSheet();
+
 
     private static Sheet OneNoteSheet()
     {
@@ -114,7 +123,7 @@ public class BeatSoundPlayer : MonoBehaviour
             new Beat(1, Note.Handstand),
         });
     }
-    
+
     private static Sheet FourNotesSheet()
     {
         return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
