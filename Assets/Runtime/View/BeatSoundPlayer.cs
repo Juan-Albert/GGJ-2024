@@ -2,6 +2,8 @@
 using Runtime.Domain;
 using UnityEngine;
 
+//Crear todos los ritmos
+//Crear ciclo de juego
 //Cuando se falla una nota se pierde un intento
 //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
 //Cuando se pierden todos los intentos se pierde la partida
@@ -96,7 +98,7 @@ public class BeatSoundPlayer : MonoBehaviour
 
     private static Sheet OneNoteSheet()
     {
-        return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+        return new Sheet(Tempo.Prestissimo, new ForwardTime(), new []
         {
             new Beat(1, Note.Handstand),
             new Beat(1, Note.Handstand),
