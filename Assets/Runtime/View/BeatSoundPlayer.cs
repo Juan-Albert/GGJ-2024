@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Runtime.Domain;
+﻿using Runtime.Domain;
 using UnityEngine;
 
 //Crear todos los ritmos
@@ -8,138 +7,138 @@ using UnityEngine;
 //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
 //Cuando se pierden todos los intentos se pierde la partida
 
-public class BeatSoundPlayer : MonoBehaviour
+namespace Runtime.View
 {
-    public delegate void OnRhythmBeat();
-    public static event OnRhythmBeat onRhythmBeat;
+    public class BeatSoundPlayer : MonoBehaviour
+    {
+        public delegate void OnRhythmBeat();
+        public static event OnRhythmBeat onRhythmBeat;
     
-    [SerializeField] private AudioSelector audioSelector;
-    private MusicianInput musicianInput;
-    private MusicianOutput directorOutput;
-    private MusicianOutput musicianOutput;
-        
-    private Sheet music;
-    private Sheet rhythm;
-    private Musician musician;
-    private void Awake()
-    {
-        directorOutput = GetComponent<Director>();
-        musicianOutput = GetComponent<Clown>();
-        musicianInput = GetComponent<MusicianInput>();
-        CreateConcert();
-    }
+        [SerializeField] private AudioSelector audioSelector;
+        private MusicianInput musicianInput;
+        private MusicianOutput directorOutput;
+        private MusicianOutput musicianOutput;
 
-    private void Update()
-    {
-        if (music.HasEnded)
+        private Song song;
+        private Musician musician;
+        private void Awake()
+        {
+            directorOutput = GetComponent<Director>();
+            musicianOutput = GetComponent<Clown>();
+            musicianInput = GetComponent<MusicianInput>();
             CreateConcert();
+        }
+
+        private void Update()
+        {
+            if (song.HasEnded)
+                CreateConcert();
         
-        PlayRhythm();
-        PlayMusic();
-    }
+            PlayRhythm();
+            PlayMusic();
+        }
 
-    void PlayRhythm()
-    {
-        rhythm.PassTime(Time.deltaTime);
-        music.PassTime(Time.deltaTime);
-        PlayBeat();
-
-        void PlayBeat()
+        void PlayRhythm()
         {
-            var beatSound = rhythm.Read();
-            audioSelector.Play(beatSound);
+            song.PassTime(Time.deltaTime);
+            PlayBeat();
+
+            void PlayBeat()
+            {
+                var beatSound = song.PlayRhythm();
+                audioSelector.Play(beatSound);
             
-            if (beatSound != Note.Silence.Sound)
-                onRhythmBeat?.Invoke();
+                if (beatSound != Note.Silence.Sound)
+                    onRhythmBeat?.Invoke();
+            }
         }
-    }
 
-    private void PlayMusic()
-    {
-        ShowDirector();
-        CheckMusicianPlay();
-    }
-
-    private void ShowDirector()
-    {
-        var noteInSheet = music.Read();
-        if (!noteInSheet.Equals(Note.Silence))
+        private void PlayMusic()
         {
-            directorOutput.Print(noteInSheet, Rhythm.Result.Perfect);
+            ShowDirector();
+            CheckMusicianPlay();
         }
-    }
 
-    private void CheckMusicianPlay()
-    {
-        var input = musicianInput.CaptureInput();
-        if (!input.Equals(Note.Silence))
+        private void ShowDirector()
         {
-            var played = new Note(input);
-            var result = musician.Play(played);
-            musicianOutput.Print(played, result);
+            var noteInSheet = song.PlayMusic();
+            if (!noteInSheet.Equals(Note.Silence))
+            {
+                directorOutput.Print(noteInSheet, Rhythm.Result.Perfect);
+            }
         }
-    }
 
-    #region Factories
-
-    private void CreateConcert()
-    {
-        music = CreateSheet();
-        rhythm = CreateSheet();
-        musician = CreateInstrument();
-        musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
-        directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
-    }
-
-    private Musician CreateInstrument() => new(music);
-
-    private static Sheet CreateSheet() => OneNoteSheet();
-
-
-    private static Sheet OneNoteSheet()
-    {
-        return new Sheet(Tempo.Prestissimo, new ForwardTime(), new []
+        private void CheckMusicianPlay()
         {
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Handstand),
-        });
-    }
+            var input = musicianInput.CaptureInput();
+            if (!input.Equals(Note.Silence))
+            {
+                var played = new Note(input);
+                var result = musician.Play(played);
+                musicianOutput.Print(played, result);
+            }
+        }
 
-    private static Sheet TwoNotesSheet()
-    {
-        return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+        #region Factories
+
+        private void CreateConcert()
         {
-            new Beat(1, Note.Ball),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Ball),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Ball),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Ball),
-            new Beat(1, Note.Handstand),
-        });
-    }
+            song = new Song(CreateSheet(), CreateSheet());
+            musician = PrepareMusician();
+            musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
+            directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
+        }
 
-    private static Sheet FourNotesSheet()
-    {
-        return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+        private Musician PrepareMusician() => new(song.Music);
+
+        private static Sheet CreateSheet() => OneNoteSheet();
+
+
+        private static Sheet OneNoteSheet()
         {
-            new Beat(1, Note.Ball),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Juggle),
-            new Beat(1, Note.Trumpet),
-            new Beat(1, Note.Ball),
-            new Beat(1, Note.Handstand),
-            new Beat(1, Note.Juggle),
-            new Beat(1, Note.Trumpet)
-        });
-    }
+            return new Sheet(Tempo.Prestissimo, new ForwardTime(), new []
+            {
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+            });
+        }
 
-    #endregion
+        private static Sheet TwoNotesSheet()
+        {
+            return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+            {
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Handstand),
+            });
+        }
+
+        private static Sheet FourNotesSheet()
+        {
+            return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+            {
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Juggle),
+                new Beat(1, Note.Trumpet),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Juggle),
+                new Beat(1, Note.Trumpet)
+            });
+        }
+
+        #endregion
+    }
 }

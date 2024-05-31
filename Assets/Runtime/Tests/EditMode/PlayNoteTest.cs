@@ -6,8 +6,6 @@ namespace Runtime.Tests.EditMode
 {
     public class PlayNoteTest
     {
-        
-        
         [Test]
         public void PlayedNote_DifferentAsBeat_IsOutTime()
         {
