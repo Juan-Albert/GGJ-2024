@@ -83,62 +83,13 @@ namespace Runtime.View
 
         private void CreateConcert()
         {
-            song = new Song(CreateSheet(), CreateSheet());
+            song = Composer.Compose();
             musician = PrepareMusician();
             musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
             directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
         }
 
         private Musician PrepareMusician() => new(song.Music);
-
-        private static Sheet CreateSheet() => OneNoteSheet();
-
-
-        private static Sheet OneNoteSheet()
-        {
-            return new Sheet(Tempo.Prestissimo, new ForwardTime(), new []
-            {
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-            });
-        }
-
-        private static Sheet TwoNotesSheet()
-        {
-            return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
-            {
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Handstand),
-            });
-        }
-
-        private static Sheet FourNotesSheet()
-        {
-            return new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
-            {
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Juggle),
-                new Beat(1, Note.Trumpet),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Juggle),
-                new Beat(1, Note.Trumpet)
-            });
-        }
-
         #endregion
     }
 }
