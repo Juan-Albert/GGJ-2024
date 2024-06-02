@@ -55,7 +55,7 @@ namespace Runtime.Tests.EditMode
             var noteToBePlayed = new Note("Rhythm");
             var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
             {
-                new Beat(2, new Note("Rhythm")),
+                new Beat(2, new Note("Silence")),
                 new Beat(2, new Note("Rhythm"))
             });
             var sut = new Musician(sheet);
@@ -67,7 +67,7 @@ namespace Runtime.Tests.EditMode
         }
 
         [Test]
-        public void PlayedNote_BeforeADifferentNote_IsOutTime()
+        public void PlayedNote_BeforeADifferentNoteOfBeat_IsOutTime()
         {
             var noteToBePlayed = new Note("Rhythm");
             var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []

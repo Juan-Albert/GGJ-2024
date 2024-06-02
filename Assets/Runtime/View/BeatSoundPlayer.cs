@@ -1,8 +1,6 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
-//Arreglar que cuando se toca una nota antes que el beat es valida
-//Arreglar que cuando se toca una nota vale la anterior una vez pasada
 //Crear ciclo de juego
     //Primero el directo toca la secuencia y luego el musico
 //Aplausometro
@@ -14,8 +12,8 @@ using UnityEngine;
 //Pequeño tutorial en canvas
 //Pantalla final: Score???
 //Sonido 
-    //distintos sonidos a los movimientos?
-    //Cambiar el pitch cada vez que se hace play al sonido
+    //distintos sonidos a los movimientos del director?
+    //Cambiar el pitch cada vez que se hace play al sonido tanto del director como del rhythm
 
 
 
