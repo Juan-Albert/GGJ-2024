@@ -14,8 +14,8 @@ namespace Runtime.Domain
             Perfect = 3
         }
 
-        public const float GoodTime = .30f;
-        public const float GreatTime = .15f;
+        public const float GoodTime = .15f;
+        public const float GreatTime = .10f;
         public const float PerfectTime = .05f;
 
         public static Result OnTimeAt(this PlayedNote played, float currentTimeOfBeat, Tempo tempo)
