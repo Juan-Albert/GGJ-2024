@@ -19,8 +19,6 @@ R
 "ProjectSettings/ProjectVersion.txt,b\0\b0589bd2976ea622442f59ada87a8d9f9e407a9e
 N
 Assets/Runtime/Domain/Sheet.cs,6\8\68ec1eae0a534dfc0b95718cd13d16251696c454
-K
-Assets/Runtime/View/Song.cs,2\8\28d72099687aafc820f2bd48cffa00e7f275e9df
 L
 Assets/Runtime/View/Clown.cs,2\0\20596b71261ed70a81a1f013b1d283742a4cd72c
 Q
@@ -31,3 +29,9 @@ M
 Assets/Runtime/Domain/Song.cs,d\9\d95d93c5b01f42507df3d5e6d30bcefc16612634
 U
 %Assets/Runtime/View/MusicianOutput.cs,f\2\f20b4aa3fd453f01927c46f56a6fb6ae786c3ec6
+M
+Assets/Runtime/Domain/Beat.cs,d\5\d590d3275c068fa93293c51f737565f4db7af389
+N
+Assets/Runtime/Domain/Tempo.cs,2\8\28fca0dc6eeaba21ebe3769028e11ce9f5787ea4
+M
+Assets/Runtime/Domain/Note.cs,a\2\a2e33cb2038c338120eda85aa61a1915480cadd8
