@@ -5,10 +5,10 @@
         public Sheet Music { get; }
         public Sheet Rhythm { get; }
 
-        public Song(Sheet music, Sheet rhythm)
+        public Song(Sheet music)
         {
             Music = music;
-            Rhythm = rhythm;
+            Rhythm = music.TempoOfSheet.AsRhythm();
         }
 
         public bool HasEnded => Music.HasEnded;

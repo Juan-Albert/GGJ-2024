@@ -24,6 +24,7 @@ namespace Runtime.Domain
         }
 
         public string Play() => hadSound ? Note.Silence.Sound : PlayFirstTime();
+        public Beat Copy() => new(Duration, note);
         
         private string PlayFirstTime()
         {

@@ -1,11 +1,16 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
-//Crear todos los ritmos
 //Crear ciclo de juego
-//Cuando se falla una nota se pierde un intento
-//Cuando se falla una nota se tiene un tiempo de invulnerabilidad
-//Cuando se pierden todos los intentos se pierde la partida
+    //Primero el directo toca la secuencia y luego el musico
+    //Cuando se falla una nota se pierde un intento
+    //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
+    //Cuando se pierden todos los intentos se pierde la partida
+//Crear todos los ritmos
+//Pequeño tutorial
+
+//Arreglar que cuando se toca una nota vale la anterior una vez pasada
+
 
 namespace Runtime.View
 {

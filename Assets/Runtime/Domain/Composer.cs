@@ -1,33 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 namespace Runtime.Domain
 {
     public static class Composer
     {
-        private static Sheet[] sheetBook = 
+        private static readonly Sheet[] SheetBook = 
         {
-            new(Tempo.Prestissimo, new ForwardTime(), new[]
+            new(Tempo.OneBeatPerSecond, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Silence),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Silence),
+                new Beat(1, Note.Juggle),
+                new Beat(1, Note.Silence),
+                new Beat(1, Note.Trumpet),
+                new Beat(1, Note.Silence),
             })
         };
         
-        public static Song Compose()
-        {
-            return new Song(RandomMusic(), Tempo.Prestissimo.AsRhythm());
-        }
-
-        private static Sheet RandomMusic() => sheetBook[Random.Range(0, sheetBook.Length)];
-
-        private static Sheet AsRhythm(this Tempo tempo) 
+        private static Sheet RandomMusic() => SheetBook[Random.Range(0, SheetBook.Length)].AsCopy();
+        
+        public static Song Compose() => new(RandomMusic());
+        
+        public static Sheet AsRhythm(this Tempo tempo) 
             => new(tempo, new ForwardTime(), new[]
                 {
                     new Beat(1, Note.Handstand),
@@ -39,6 +38,12 @@ namespace Runtime.Domain
                     new Beat(1, Note.Handstand),
                     new Beat(1, Note.Handstand),
                 });
+
+        private static Sheet AsCopy(this Sheet toBeCopied)
+            => new(toBeCopied.TempoOfSheet, new ForwardTime(), GetBeatsOf(toBeCopied));
+
+        private static Beat[] GetBeatsOf(Sheet sheet) 
+            => sheet.Beats.Select(b => b.Copy()).ToArray();
     }
 
 }

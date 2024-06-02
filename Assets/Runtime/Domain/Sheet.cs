@@ -26,7 +26,7 @@ namespace Runtime.Domain
             TempoOfSheet = tempoOfSheet;
             ForwardTime = forwardTime;
         }
-
+        
         public string Read() => CurrentBeat.Play();
 
         public void PassTime(float elapsedTime)
