@@ -20,7 +20,6 @@ namespace Runtime.Domain
         {
             if (Sheet.HasEnded)
                 throw new NotSupportedException("No se puede tocar cuando la partitura a terminado");
-
             return Rhythm.BetterOf(CheckCurrentBeat(), CheckNextBeat());
 
             Rhythm.Result CheckCurrentBeat() 
@@ -47,12 +46,12 @@ namespace Runtime.Domain
 
         private Rhythm.Result IsOnTime(PlayedNote played)
         {
-            if (Sheet.HasEnded || DifferentNoteAsCurrentBeat())
+            if (Sheet.HasEnded || DifferentNoteAsBeat())
                 return Rhythm.Result.Out;
             
             return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt), Sheet.TempoOfSheet);
 
-            bool DifferentNoteAsCurrentBeat() => !Sheet.CurrentBeat.HasNote(played.Played);
+            bool DifferentNoteAsBeat() => !played.PlayedAt.HasNote(played.Played);
         }
     }
 }

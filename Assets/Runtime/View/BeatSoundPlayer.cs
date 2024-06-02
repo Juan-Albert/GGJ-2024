@@ -3,14 +3,19 @@ using UnityEngine;
 
 //Arreglar que cuando se toca una nota antes que el beat es valida
 //Arreglar que cuando se toca una nota vale la anterior una vez pasada
-
 //Crear ciclo de juego
     //Primero el directo toca la secuencia y luego el musico
-    //Cuando se falla una nota se pierde un intento
+//Aplausometro
+    //Cuando se falla una nota baja el aplausometro
+    //Cuando se haciertan varias en racha el aplausometro sube
     //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
-    //Cuando se pierden todos los intentos se pierde la partida
+    //Cuando la barra de aplausometro se acaba se pierde la partida
 //Crear todos los ritmos
-//Pequeño tutorial
+//Pequeño tutorial en canvas
+//Pantalla final: Score???
+//Sonido 
+    //distintos sonidos a los movimientos?
+    //Cambiar el pitch cada vez que se hace play al sonido
 
 
 

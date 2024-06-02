@@ -10,6 +10,7 @@
         }
 
         public static Note Silence => new ("Silence");
+        public static Note Rhythm => new ("Rhythm");
         public static Note Ball => new ("Ball");
         public static Note Juggle => new ("Juggle");
         public static Note Handstand => new ("Handstand");

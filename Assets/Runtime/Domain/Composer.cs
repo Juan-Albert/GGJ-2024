@@ -29,14 +29,14 @@ namespace Runtime.Domain
         public static Sheet AsRhythm(this Tempo tempo) 
             => new(tempo, new ForwardTime(), new[]
                 {
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
-                    new Beat(1, Note.Handstand),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
+                    new Beat(1, Note.Rhythm),
                 });
 
         private static Sheet AsCopy(this Sheet toBeCopied)

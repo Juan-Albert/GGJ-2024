@@ -65,5 +65,21 @@ namespace Runtime.Tests.EditMode
             sheet.PassTime(elapsedTime);
             sut.Play(noteToBePlayed).Should().Be(score);
         }
+
+        [Test]
+        public void PlayedNote_BeforeADifferentNote_IsOutTime()
+        {
+            var noteToBePlayed = new Note("Rhythm");
+            var sheet = new Sheet(Tempo.OneBeatPerSecond, new ForwardTime(), new []
+            {
+                new Beat(1, new Note("Rhythm")),
+                new Beat(1, new Note("Silence"))
+            });
+            var sut = new Musician(sheet);
+
+            var elapsedTime = Tempo.OneBeatPerSecond.ToSeconds(1) - 0.01f;
+            sheet.PassTime(elapsedTime);
+            sut.Play(noteToBePlayed).Should().Be(Rhythm.Result.Out);
+        }
     }
 }
