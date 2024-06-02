@@ -1,6 +1,9 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
 
+//Arreglar que cuando se toca una nota antes que el beat es valida
+//Arreglar que cuando se toca una nota vale la anterior una vez pasada
+
 //Crear ciclo de juego
     //Primero el directo toca la secuencia y luego el musico
     //Cuando se falla una nota se pierde un intento
@@ -9,7 +12,6 @@ using UnityEngine;
 //Crear todos los ritmos
 //Pequeño tutorial
 
-//Arreglar que cuando se toca una nota vale la anterior una vez pasada
 
 
 namespace Runtime.View
