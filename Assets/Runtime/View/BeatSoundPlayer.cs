@@ -1,5 +1,6 @@
 ﻿using Runtime.Domain;
 using UnityEngine;
+using UnityEngine.Playables;
 
 //Crear ciclo de juego
     //Primero el directo toca la secuencia y luego el musico
@@ -29,7 +30,8 @@ namespace Runtime.View
         private MusicianOutput directorOutput;
         private MusicianOutput musicianOutput;
 
-        private Song song;
+        private Song directorSong;
+        private Song musicianSong;
         private Musician musician;
         private void Awake()
         {
@@ -41,43 +43,47 @@ namespace Runtime.View
 
         private void Update()
         {
-            if (song.HasEnded)
+            if (directorSong.HasEnded && musicianSong.HasEnded)
                 CreateConcert();
-        
-            PlayRhythm();
-            PlayMusic();
+
+            if (directorSong.HasEnded)
+                PlayMusician();
+            else
+                PlayDirector();
         }
 
-        void PlayRhythm()
+        private void PlayDirector()
         {
-            song.PassTime(Time.deltaTime);
-            PlayBeat();
-
-            void PlayBeat()
-            {
-                var beatSound = song.PlayRhythm();
-                audioSelector.Play(beatSound);
-            
-                if (beatSound != Note.Silence.Sound)
-                    onRhythmBeat?.Invoke();
-            }
-        }
-
-        private void PlayMusic()
-        {
+            directorSong.PassTime(Time.deltaTime);
+            PlayBeatOf(directorSong);
             ShowDirector();
+        }
+
+        private void PlayMusician()
+        {
+            musicianSong.PassTime(Time.deltaTime);
+            PlayBeatOf(musicianSong);
             CheckMusicianPlay();
         }
 
+        void PlayBeatOf(Song song)
+        {
+            var beatSound = song.PlayRhythm();
+            audioSelector.Play(beatSound);
+            
+            if (beatSound != Note.Silence.Sound)
+                onRhythmBeat?.Invoke();
+        }
+        
         private void ShowDirector()
         {
-            var noteInSheet = song.PlayMusic();
+            var noteInSheet = directorSong.PlayMusic();
             if (!noteInSheet.Equals(Note.Silence))
             {
                 directorOutput.Print(noteInSheet, Rhythm.Result.Perfect);
             }
         }
-
+        
         private void CheckMusicianPlay()
         {
             var input = musicianInput.CaptureInput();
@@ -93,13 +99,14 @@ namespace Runtime.View
 
         private void CreateConcert()
         {
-            song = Composer.Compose();
+            directorSong = Composer.Compose();
+            musicianSong = directorSong.AsCopy();
             musician = PrepareMusician();
             musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
             directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
         }
 
-        private Musician PrepareMusician() => new(song.Music);
+        private Musician PrepareMusician() => new(musicianSong.Music);
         #endregion
     }
 }

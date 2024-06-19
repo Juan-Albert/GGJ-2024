@@ -39,6 +39,8 @@ namespace Runtime.Domain
                     new Beat(1, Note.Rhythm),
                 });
 
+        public static Song AsCopy(this Song toBeCopied) => new(toBeCopied.Music.AsCopy());
+
         private static Sheet AsCopy(this Sheet toBeCopied)
             => new(toBeCopied.TempoOfSheet, new ForwardTime(), GetBeatsOf(toBeCopied));
 
