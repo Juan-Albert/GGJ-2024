@@ -21,7 +21,17 @@ namespace Runtime.Domain
             if (Sheet.HasEnded)
                 return false;
 
-            return !Sheet.LastBeat.HasNote(Note.Silence) && !Sheet.LastBeat.HasBeenPlayed;
+            return !IsSilence() &&
+                   !Sheet.LastBeat.HasBeenPlayed &&
+                   OutOfTime();
+
+            bool IsSilence() => Sheet.LastBeat.HasNote(Note.Silence);
+
+            bool OutOfTime()
+                => RhythmOfLastBeat() == Rhythm.Result.Out;
+
+            Rhythm.Result RhythmOfLastBeat() 
+                => Sheet.LastBeat.OnTimeAt(Sheet.CurrentTime, Sheet.StartTimeOf(Sheet.LastBeat), Sheet.TempoOfSheet);
         }
 
         public Rhythm.Result Play(Note note)
@@ -30,15 +40,13 @@ namespace Runtime.Domain
                 throw new NotSupportedException("No se puede tocar cuando la partitura a terminado");
             return Rhythm.BetterOf(CheckCurrentBeat(), CheckNextBeat());
 
-            Rhythm.Result CheckCurrentBeat() 
-                => AlreadyPlayedAt(Sheet.CurrentBeat)  ?
-                Rhythm.Result.Out :
-                SaveAndCheckPlayed(note, Sheet.CurrentBeat);
-            
-            Rhythm.Result CheckNextBeat() 
-                => !Sheet.HasNext || AlreadyPlayedAt(Sheet.NextBeat) ?
-                Rhythm.Result.Out :
-                SaveAndCheckPlayed(note, Sheet.NextBeat);
+            Rhythm.Result CheckCurrentBeat()
+                => AlreadyPlayedAt(Sheet.CurrentBeat) ? Rhythm.Result.Out : SaveAndCheckPlayed(note, Sheet.CurrentBeat);
+
+            Rhythm.Result CheckNextBeat()
+                => !Sheet.HasNext || AlreadyPlayedAt(Sheet.NextBeat)
+                    ? Rhythm.Result.Out
+                    : SaveAndCheckPlayed(note, Sheet.NextBeat);
         }
 
         private Rhythm.Result SaveAndCheckPlayed(Note note, Beat beat)
@@ -48,7 +56,7 @@ namespace Runtime.Domain
 
             if (result != Rhythm.Result.Out)
                 playedNotes.Add(played);
-            
+
             return result;
         }
 
@@ -56,7 +64,7 @@ namespace Runtime.Domain
         {
             if (Sheet.HasEnded || DifferentNoteAsBeat())
                 return Rhythm.Result.Out;
-            
+
             return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt), Sheet.TempoOfSheet);
 
             bool DifferentNoteAsBeat() => !played.PlayedAt.HasNote(played.Played);

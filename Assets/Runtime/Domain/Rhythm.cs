@@ -18,21 +18,24 @@ namespace Runtime.Domain
         public const float GreatTime = .10f;
         public const float PerfectTime = .05f;
 
-        public static Result OnTimeAt(this PlayedNote played, float currentTimeOfBeat, Tempo tempo)
+        public static Result OnTimeAt(this Beat beat, float currentTime, float timeOfBeat, Tempo tempo)
         {
             if (DeltaPlayedTime() <= tempo.ToSeconds(PerfectTime))
                 return Result.Perfect;
 
-            if(DeltaPlayedTime() <= tempo.ToSeconds(GreatTime))
+            if (DeltaPlayedTime() <= tempo.ToSeconds(GreatTime))
                 return Result.Great;
 
-            if(DeltaPlayedTime() <= tempo.ToSeconds(GoodTime))
+            if (DeltaPlayedTime() <= tempo.ToSeconds(GoodTime))
                 return Result.Good;
 
             return Result.Out;
 
-            float DeltaPlayedTime() => Mathf.Abs(currentTimeOfBeat - played.When);
+            float DeltaPlayedTime() => Mathf.Abs(timeOfBeat - currentTime);
         }
+
+        public static Result OnTimeAt(this PlayedNote played, float timeOfBeat, Tempo tempo)
+            => played.PlayedAt.OnTimeAt(played.When, timeOfBeat, tempo);
 
         public static Result BetterOf(params Result[] results) => results.Max();
     }
