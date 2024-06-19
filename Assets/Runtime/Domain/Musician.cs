@@ -22,16 +22,16 @@ namespace Runtime.Domain
                 return false;
 
             return !IsSilence() &&
-                   !Sheet.LastBeat.HasBeenPlayed &&
+                   !AlreadyPlayedAt(Sheet.CurrentBeat) &&
                    OutOfTime();
 
-            bool IsSilence() => Sheet.LastBeat.HasNote(Note.Silence);
+            bool IsSilence() => Sheet.CurrentBeat.HasNote(Note.Silence);
 
             bool OutOfTime()
                 => RhythmOfLastBeat() == Rhythm.Result.Out;
 
             Rhythm.Result RhythmOfLastBeat() 
-                => Sheet.LastBeat.OnTimeAt(Sheet.CurrentTime, Sheet.StartTimeOf(Sheet.LastBeat), Sheet.TempoOfSheet);
+                => Sheet.CurrentBeat.OnTimeAt(Sheet.CurrentTime, Sheet.StartTimeOf(Sheet.CurrentBeat), Sheet.TempoOfSheet);
         }
 
         public Rhythm.Result Play(Note note)
@@ -68,6 +68,12 @@ namespace Runtime.Domain
             return played.OnTimeAt(Sheet.StartTimeOf(played.PlayedAt), Sheet.TempoOfSheet);
 
             bool DifferentNoteAsBeat() => !played.PlayedAt.HasNote(played.Played);
+        }
+
+        public void FailLastBeat()
+        {
+            var failedNote = new PlayedNote(Sheet.CurrentTime, Note.Wrong, Sheet.CurrentBeat);
+            playedNotes.Add(failedNote);
         }
     }
 }

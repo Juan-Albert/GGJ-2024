@@ -16,8 +16,6 @@ namespace Runtime.Domain
         public Beat CurrentBeat => HasEnded ? Beat.Silence : Beats.ElementAt(GetCurrentBeatIndex());
         public Beat NextBeat => HasNext ? Beats.ElementAt(GetCurrentBeatIndex() + 1) : Beat.Silence;
         public bool HasNext => Beats.Last() != CurrentBeat;
-        public Beat LastBeat => HasPrevious ? Beats.ElementAt(GetCurrentBeatIndex() - 1) : Beat.Silence;
-        public bool HasPrevious => Beats.First() != CurrentBeat;
 
         public Sheet(Tempo tempoOfSheet, ForwardTime forwardTime, IEnumerable<Beat> beats)
         {

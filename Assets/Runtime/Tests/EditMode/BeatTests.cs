@@ -10,6 +10,7 @@ namespace Runtime.Tests.EditMode
         public void PlayBeat_FirstTime_Sound()
         {
             var sut = new Beat(1, new Note("Sound"));
+
             sut.Play().Should().Be("Sound");
         }
         

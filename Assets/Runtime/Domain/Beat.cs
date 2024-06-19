@@ -9,8 +9,6 @@ namespace Runtime.Domain
         private bool hasBeenPlayed;
         private readonly Note note;
 
-        public bool HasBeenPlayed => hasBeenPlayed;
-
         public bool HasNote(Note note) => this.note.Sound == note.Sound;
 
         public Beat(int duration) : this (duration, Note.Silence) { }
