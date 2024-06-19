@@ -10,12 +10,14 @@ namespace Runtime.Domain
         public Tempo TempoOfSheet { get; }
         public IEnumerable<Beat> Beats { get; }
 
-        public float CurrentTime => ForwardTime.ElapsedTimeInSecond;
-        public Beat CurrentBeat => HasEnded ? Beat.Silence : Beats.ElementAt(GetCurrentBeatIndex());
-        public bool HasNext => Beats.Last() != CurrentBeat;
-        public Beat NextBeat => HasNext ? Beats.ElementAt(GetCurrentBeatIndex() + 1) : Beat.Silence;
         public bool HasEnded => ForwardTime.ElapsedTimeInSecond >= TotalSheetDuration;
+        public float CurrentTime => ForwardTime.ElapsedTimeInSecond;
         public float TotalSheetDuration => Beats.Sum(b => TempoOfSheet.ToSeconds(b.Duration));
+        public Beat CurrentBeat => HasEnded ? Beat.Silence : Beats.ElementAt(GetCurrentBeatIndex());
+        public Beat NextBeat => HasNext ? Beats.ElementAt(GetCurrentBeatIndex() + 1) : Beat.Silence;
+        public bool HasNext => Beats.Last() != CurrentBeat;
+        public Beat LastBeat => HasPrevious ? Beats.ElementAt(GetCurrentBeatIndex() - 1) : Beat.Silence;
+        public bool HasPrevious => Beats.First() != CurrentBeat;
 
         public Sheet(Tempo tempoOfSheet, ForwardTime forwardTime, IEnumerable<Beat> beats)
         {
@@ -26,8 +28,9 @@ namespace Runtime.Domain
             TempoOfSheet = tempoOfSheet;
             ForwardTime = forwardTime;
         }
-        
+
         public string Read() => CurrentBeat.Play();
+
 
         public void PassTime(float elapsedTime)
         {
@@ -71,6 +74,7 @@ namespace Runtime.Domain
         }
 
         public static Sheet Empty => new (new Tempo(1), new ForwardTime(),new List<Beat>());
+
 
         public static Sheet OneBeatSheet => new 
             (

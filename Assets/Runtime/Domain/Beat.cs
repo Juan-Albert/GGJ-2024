@@ -6,11 +6,13 @@ namespace Runtime.Domain
     {
         public int Duration { get; }
 
-        private bool hadSound;
+        private bool hasBeenPlayed;
         private readonly Note note;
 
+        public bool HasBeenPlayed => hasBeenPlayed;
+
         public bool HasNote(Note note) => this.note.Sound == note.Sound;
-        
+
         public Beat(int duration) : this (duration, Note.Silence) { }
         
         public Beat(int duration, Note note)
@@ -18,17 +20,17 @@ namespace Runtime.Domain
             if (duration <= 0)
                 throw new NotSupportedException("No se puede crear un beat que no tenga duracion");
 
-            hadSound = false;
+            hasBeenPlayed = false;
             Duration = duration;
             this.note = note;
         }
 
-        public string Play() => hadSound ? Note.Silence.Sound : PlayFirstTime();
+        public string Play() => hasBeenPlayed ? Note.Silence.Sound : PlayFirstTime();
         public Beat Copy() => new(Duration, note);
         
         private string PlayFirstTime()
         {
-            hadSound = true;
+            hasBeenPlayed = true;
             return note.Sound;
         }
 

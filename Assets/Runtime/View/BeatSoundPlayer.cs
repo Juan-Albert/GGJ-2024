@@ -93,6 +93,10 @@ namespace Runtime.View
                 var result = musician.Play(played);
                 musicianOutput.Print(played, result);
             }
+            else if(musician.HasFailedLastBeat())
+            {
+                musicianOutput.Print(Note.Silence, Rhythm.Result.Out);
+            }
         }
 
         #region Factories

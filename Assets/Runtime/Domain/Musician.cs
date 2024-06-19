@@ -5,8 +5,8 @@ namespace Runtime.Domain
 {
     public class Musician
     {
-        private Sheet Sheet;
-        private List<PlayedNote> playedNotes;
+        private readonly Sheet Sheet;
+        private readonly List<PlayedNote> playedNotes;
 
         private bool AlreadyPlayedAt(Beat beat) => playedNotes.Exists(n => n.PlayedAt == beat);
 
@@ -14,6 +14,14 @@ namespace Runtime.Domain
         {
             Sheet = sheet;
             playedNotes = new List<PlayedNote>();
+        }
+
+        public bool HasFailedLastBeat()
+        {
+            if (Sheet.HasEnded)
+                return false;
+
+            return !Sheet.LastBeat.HasNote(Note.Silence) && !Sheet.LastBeat.HasBeenPlayed;
         }
 
         public Rhythm.Result Play(Note note)
