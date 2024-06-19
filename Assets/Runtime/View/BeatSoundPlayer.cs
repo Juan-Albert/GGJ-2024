@@ -3,22 +3,21 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 //Crear ciclo de juego
-    //Primero el directo toca la secuencia y luego el musico
-//Aplausometro
-    //Cuando se falla una nota baja el aplausometro
-    //Cuando se haciertan varias en racha el aplausometro sube
-    //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
-    //Cuando la barra de aplausometro se acaba se pierde la partida
-//Crear todos los ritmos
-//Pequeño tutorial en canvas
-//Pantalla final: Score???
+    //Aplausometro
+        //Cuando se falla una nota baja el aplausometro
+        //Cuando se haciertan varias en racha el aplausometro sube
+        //Cuando se falla una nota se tiene un tiempo de invulnerabilidad
+        //Cuando la barra de aplausometro se acaba se pierde la partida
+    //Menu de inicio
+    //Pantalla final: Score???
 //Sonido 
     //distintos sonidos a los movimientos del director?
     //Cambiar el pitch cada vez que se hace play al sonido tanto del director como del rhythm
+//Pequeño tutorial en canvas
+//Crear todos los ritmos
 
 
-
-namespace Runtime.View
+    namespace Runtime.View
 {
     public class BeatSoundPlayer : MonoBehaviour
     {
