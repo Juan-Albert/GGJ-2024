@@ -95,6 +95,7 @@ namespace Runtime.View
             }
             else if(musician.HasFailedLastBeat())
             {
+                musician.Play(Note.Wrong);
                 musicianOutput.Print(Note.Silence, Rhythm.Result.Out);
             }
         }
