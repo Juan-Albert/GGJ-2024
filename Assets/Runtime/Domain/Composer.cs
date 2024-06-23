@@ -12,13 +12,13 @@ namespace Runtime.Domain
             new(Tempo.OneBeatPerSecond, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Silence),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Juggle),
+                new Beat(1, Note.Trumpet),
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Silence),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Silence),
-                new Beat(1, Note.Handstand),
-                new Beat(1, Note.Silence),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Juggle),
+                new Beat(1, Note.Trumpet)
             })
         };
         
