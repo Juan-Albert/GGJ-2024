@@ -1,5 +1,6 @@
 ﻿using System;
 using Runtime.Domain;
+using UnityEngine;
 
 namespace Runtime.Tests.EditMode
 {
@@ -41,9 +42,7 @@ namespace Runtime.Tests.EditMode
             }
         }
 
-        private void ApplyModifier(float modifier)
-        {
-            ApplauseMeter += modifier;
-        }
+        private void ApplyModifier(float modifier) 
+            => ApplauseMeter = Mathf.Clamp(ApplauseMeter + modifier, 0f, MaxApplauseMeter);
     }
 }
