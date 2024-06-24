@@ -29,7 +29,7 @@ namespace Runtime.Tests.EditMode
         }
 
         [Test]
-        public void ReactToPositiveResult_AtMaxApplauseMeter_EqualsMaxAplauseMeter()
+        public void ReactToPositiveResult_AtMaxApplauseMeter_EqualsMaxApplauseMeter()
         {
             var sut = new Applausometer();
             sut.ReactTo(Rhythm.Result.Perfect);
@@ -43,11 +43,19 @@ namespace Runtime.Tests.EditMode
         public void ComboPositivesResults_GenerateMoreApplauseMeter(float applauseMeterModifier, Rhythm.Result result)
         {
             var sut = new Applausometer(HalfMaxApplauseMeter);
-            sut.ReactTo(result);
-            sut.ReactTo(result);
-            sut.ReactTo(result);
 
-            sut.ApplauseMeter.Should().Be(HalfMaxApplauseMeter);
+            var accumulatedMeter = HalfMaxApplauseMeter + applauseMeterModifier;
+            var accumulatedCombo = 1f;
+            sut.ReactTo(result);
+            sut.ApplauseMeter.Should().Be(accumulatedMeter);
+
+            for (var i = 0; i < 5; i++)
+            {
+                accumulatedCombo += Applausometer.ComboIncrementalValue;
+                accumulatedMeter += applauseMeterModifier * accumulatedCombo; 
+                sut.ReactTo(result);
+                sut.ApplauseMeter.Should().Be(accumulatedMeter);
+            }
         }
     }
 }
