@@ -57,5 +57,19 @@ namespace Runtime.Tests.EditMode
                 sut.ApplauseMeter.Should().Be(accumulatedMeter);
             }
         }
+
+        [Test]
+        public void OutOfTime_DoesNotCombo()
+        {
+            var sut = new Applausometer();
+            
+            sut.ReactTo(Rhythm.Result.Perfect);
+            sut.ReactTo(Rhythm.Result.Perfect);
+            sut.ReactTo(Rhythm.Result.Perfect);
+            sut.ReactTo(Rhythm.Result.Out);
+
+            sut.ApplauseMeter.Should().Be(Applausometer.MaxApplauseMeter + Applausometer.OutModifier);
+            sut.ApplauseCombo.Counter.Should().Be(0);
+        }
     }
 }
