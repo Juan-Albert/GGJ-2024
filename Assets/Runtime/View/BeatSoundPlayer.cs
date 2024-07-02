@@ -1,6 +1,7 @@
-﻿using Runtime.Domain;
+﻿using System;
+using System.Linq;
+using Runtime.Domain;
 using UnityEngine;
-using UnityEngine.Playables;
 
 //Crear ciclo de juego
     //Aplausometro
@@ -18,7 +19,7 @@ using UnityEngine.Playables;
 //Crear todos los ritmos
 
 
-    namespace Runtime.View
+namespace Runtime.View
 {
     public class BeatSoundPlayer : MonoBehaviour
     {
@@ -29,6 +30,7 @@ using UnityEngine.Playables;
         private MusicianInput musicianInput;
         private MusicianOutput directorOutput;
         private MusicianOutput musicianOutput;
+        private FilledImageApplausometer applausometerImage;
 
         private Song directorSong;
         private Song musicianSong;
@@ -38,6 +40,7 @@ using UnityEngine.Playables;
             directorOutput = GetComponent<Director>();
             musicianOutput = GetComponent<Clown>();
             musicianInput = GetComponent<MusicianInput>();
+            applausometerImage = FindObjectsOfType<FilledImageApplausometer>().Single();
             CreateConcert();
         }
 
@@ -92,11 +95,13 @@ using UnityEngine.Playables;
                 var played = new Note(input);
                 var result = musician.Play(played);
                 musicianOutput.Print(played, result);
+                applausometerImage.applausometer.ReactTo(result);
             }
             else if(musician.HasFailedLastBeat())
             {
                 musician.FailLastBeat();
                 musicianOutput.Print(Note.Silence, Rhythm.Result.Out);
+                applausometerImage.applausometer.ReactTo(Rhythm.Result.Out);
             }
         }
 

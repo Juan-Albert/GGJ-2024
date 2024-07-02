@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using Runtime.Domain;
 
 namespace Runtime.Tests.EditMode
 {
