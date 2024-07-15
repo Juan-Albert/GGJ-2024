@@ -5,8 +5,6 @@ using UnityEngine;
 
 //Crear ciclo de juego
     //Aplausometro
-        //Cuando se falla una nota baja el aplausometro
-        //Cuando se haciertan varias en racha el aplausometro sube
         //Cuando la barra de aplausometro se acaba se pierde la partida
         //No se puede fallar en un beat mas de una vez o Cuando se falla una nota se tiene un tiempo de invulnerabilidad
     //Menu de inicio
