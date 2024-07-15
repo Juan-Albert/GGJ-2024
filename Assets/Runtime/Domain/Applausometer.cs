@@ -52,6 +52,8 @@ namespace Runtime.Domain
                 ApplauseCombo.Increase();
         }
 
+        public void Reset() => ApplauseMeter = MaxApplauseMeter;
+
         private void ApplyModifier(float howMuch)
         {
             var increasedApplause = howMuch * ApplauseModifier;

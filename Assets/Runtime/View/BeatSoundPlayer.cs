@@ -7,6 +7,7 @@ using UnityEngine;
     //Aplausometro
         //Cuando la barra de aplausometro se acaba se pierde la partida
         //No se puede fallar en un beat mas de una vez o Cuando se falla una nota se tiene un tiempo de invulnerabilidad
+    //Enseñar el combo
     //Menu de inicio
     //Pantalla final: Score???
 //Sonido 
@@ -51,6 +52,9 @@ namespace Runtime.View
                 PlayMusician();
             else
                 PlayDirector();
+
+            if (applausometerImage.applausometer.ApplauseMeter <= 0f)
+                GameOver();
         }
 
         private void PlayDirector()
@@ -75,7 +79,7 @@ namespace Runtime.View
             if (beatSound != Note.Silence.Sound)
                 onRhythmBeat?.Invoke();
         }
-        
+
         private void ShowDirector()
         {
             var noteInSheet = directorSong.PlayMusic();
@@ -84,7 +88,7 @@ namespace Runtime.View
                 directorOutput.Print(noteInSheet, Rhythm.Result.Perfect);
             }
         }
-        
+
         private void CheckMusicianPlay()
         {
             var input = musicianInput.CaptureInput();
@@ -101,6 +105,12 @@ namespace Runtime.View
                 musicianOutput.Print(Note.Silence, Rhythm.Result.Out);
                 applausometerImage.applausometer.ReactTo(Rhythm.Result.Out);
             }
+        }
+
+        private void GameOver()
+        {
+            //TODO enseñar la pantalla de gameover
+            applausometerImage.applausometer.Reset();
         }
 
         #region Factories
