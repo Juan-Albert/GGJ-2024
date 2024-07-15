@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Runtime.Domain;
+using TMPro;
 using UnityEngine;
 
 //Crear ciclo de juego
@@ -29,7 +30,7 @@ namespace Runtime.View
         private MusicianInput musicianInput;
         private MusicianOutput directorOutput;
         private MusicianOutput musicianOutput;
-        private FilledImageApplausometer applausometerImage;
+        private ApplausometerView applausometerview;
 
         private Song directorSong;
         private Song musicianSong;
@@ -39,7 +40,7 @@ namespace Runtime.View
             directorOutput = GetComponent<Director>();
             musicianOutput = GetComponent<Clown>();
             musicianInput = GetComponent<MusicianInput>();
-            applausometerImage = FindObjectsOfType<FilledImageApplausometer>().Single();
+            applausometerview = FindObjectsOfType<ApplausometerView>().Single();
             CreateConcert();
         }
 
@@ -53,7 +54,7 @@ namespace Runtime.View
             else
                 PlayDirector();
 
-            if (applausometerImage.applausometer.ApplauseMeter <= 0f)
+            if (applausometerview.applausometer.ApplauseMeter <= 0f)
                 GameOver();
         }
 
@@ -97,20 +98,20 @@ namespace Runtime.View
                 var played = new Note(input);
                 var result = musician.Play(played);
                 musicianOutput.Print(played, result);
-                applausometerImage.applausometer.ReactTo(result);
+                applausometerview.applausometer.ReactTo(result);
             }
             else if(musician.HasFailedLastBeat())
             {
                 musician.FailLastBeat();
                 musicianOutput.Print(Note.Silence, Rhythm.Result.Out);
-                applausometerImage.applausometer.ReactTo(Rhythm.Result.Out);
+                applausometerview.applausometer.ReactTo(Rhythm.Result.Out);
             }
         }
 
         private void GameOver()
         {
             //TODO enseñar la pantalla de gameover
-            applausometerImage.applausometer.Reset();
+            applausometerview.applausometer.Reset();
         }
 
         #region Factories

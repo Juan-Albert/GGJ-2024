@@ -15,7 +15,7 @@ namespace Runtime.Domain
         public float ApplauseMeter { get; private set; }
         public Combo ApplauseCombo { get; private set; }
 
-        private float ApplauseModifier => 1f + ApplauseCombo.Counter * ComboIncrementalValue;
+        private float ApplauseModifier => 1f + ApplauseCombo.ClampedCounter * ComboIncrementalValue;
 
         public Applausometer(float applauseMeter = MaxApplauseMeter)
         {

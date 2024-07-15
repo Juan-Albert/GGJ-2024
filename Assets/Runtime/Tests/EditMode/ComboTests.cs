@@ -15,7 +15,7 @@ namespace Runtime.Tests.EditMode
             sut.Increase();
             sut.Increase();
 
-            sut.Counter.Should().Be(3);
+            sut.ClampedCounter.Should().Be(3);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Runtime.Tests.EditMode
             sut.Increase();
             sut.Reset();
 
-            sut.Counter.Should().Be(0);
+            sut.ClampedCounter.Should().Be(0);
         }
         
         [Test]
@@ -40,7 +40,7 @@ namespace Runtime.Tests.EditMode
             sut.Increase();
             sut.Increase();
 
-            sut.Counter.Should().Be(sut.MaxCombo);
+            sut.ClampedCounter.Should().Be(sut.MaxCombo);
         }
         
     }

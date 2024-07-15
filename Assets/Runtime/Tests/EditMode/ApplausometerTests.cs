@@ -69,7 +69,7 @@ namespace Runtime.Tests.EditMode
             sut.ReactTo(Rhythm.Result.Out);
 
             sut.ApplauseMeter.Should().Be(Applausometer.MaxApplauseMeter + Applausometer.OutModifier);
-            sut.ApplauseCombo.Counter.Should().Be(0);
+            sut.ApplauseCombo.ClampedCounter.Should().Be(0);
         }
     }
 }
