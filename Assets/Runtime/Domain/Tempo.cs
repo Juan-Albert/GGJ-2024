@@ -31,5 +31,18 @@ namespace Runtime.Domain
         public static Tempo Allegro => new(120);
         public static Tempo Presto => new(160);
         public static Tempo Prestissimo => new(200);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not Tempo tempo)
+                return false;
+            
+            return BeatsPerMinute == tempo.BeatsPerMinute;
+        }
+
+        public override int GetHashCode()
+        {
+            return BeatsPerMinute;
+        }
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Runtime.Domain;
-using TMPro;
 using UnityEngine;
 
+//Dar mas feedback de que se ha fallado
 //Crear ciclo de juego
-    //Aplausometro
-        //Cuando la barra de aplausometro se acaba se pierde la partida
-        //No se puede fallar en un beat mas de una vez o Cuando se falla una nota se tiene un tiempo de invulnerabilidad
-    //Enseñar el combo
     //Menu de inicio
     //Pantalla final: Score???
+
 //Sonido 
     //distintos sonidos a los movimientos del director?
     //Cambiar el pitch cada vez que se hace play al sonido tanto del director como del rhythm
@@ -30,17 +26,20 @@ namespace Runtime.View
         private MusicianInput musicianInput;
         private MusicianOutput directorOutput;
         private MusicianOutput musicianOutput;
-        private ApplausometerView applausometerview;
 
+        private int sheetsPlayed;
         private Song directorSong;
         private Song musicianSong;
         private Musician musician;
+        private ApplausometerView applausometerview;
+
         private void Awake()
         {
             directorOutput = GetComponent<Director>();
             musicianOutput = GetComponent<Clown>();
             musicianInput = GetComponent<MusicianInput>();
             applausometerview = FindObjectsOfType<ApplausometerView>().Single();
+            sheetsPlayed = 0;
             CreateConcert();
         }
 
@@ -118,11 +117,12 @@ namespace Runtime.View
 
         private void CreateConcert()
         {
-            directorSong = Composer.Compose();
+            directorSong = Composer.ComposeBasedOn(sheetsPlayed);
             musicianSong = directorSong.AsCopy();
             musician = PrepareMusician();
-            musicianOutput.BeOnTime(Tempo.OneBeatPerSecond);
-            directorOutput.BeOnTime(Tempo.OneBeatPerSecond);
+            musicianOutput.BeOnTime(directorSong.Tempo);
+            directorOutput.BeOnTime(directorSong.Tempo);
+            sheetsPlayed++;
         }
 
         private Musician PrepareMusician() => new(musicianSong.Music);

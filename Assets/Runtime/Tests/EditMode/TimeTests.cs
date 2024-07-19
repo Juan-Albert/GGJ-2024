@@ -4,7 +4,7 @@ using Runtime.Domain;
 
 namespace Runtime.Tests.EditMode
 {
-    public class TimeTest
+    public class TimeTests
     {
         [Test]
         public void DefaultElapsedTime_IsZero()

@@ -4,6 +4,7 @@
     {
         public Sheet Music { get; }
         public Sheet Rhythm { get; }
+        public Tempo Tempo => Music.TempoOfSheet;
 
         public Song(Sheet music)
         {
