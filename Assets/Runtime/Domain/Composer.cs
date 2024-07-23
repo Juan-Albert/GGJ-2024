@@ -12,15 +12,27 @@ namespace Runtime.Domain
         {
             new(Tempo.OneBeatPerSecond, new ForwardTime(), new[]
             {
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Handstand)
+            }),
+            new(Tempo.OneBeatPerSecond, new ForwardTime(), new[]
+            {
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Juggle),
-                new Beat(1, Note.Trumpet),
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Juggle),
-                new Beat(1, Note.Trumpet)
-            })
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Handstand)
+            }),
+            new(Tempo.OneBeatPerSecond, new ForwardTime(), new[]
+            {
+                new Beat(4, Note.Handstand),
+                new Beat(4, Note.Handstand)
+            }),
         };
 
         private static readonly Sheet[] BeginnerSheetBook =
@@ -28,28 +40,70 @@ namespace Runtime.Domain
             new(Tempo.Moderato, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Juggle),
-                new Beat(1, Note.Trumpet),
+                new Beat(2, Note.Ball),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
-                new Beat(1, Note.Juggle),
-                new Beat(1, Note.Trumpet)
+                new Beat(2, Note.Handstand),
+                new Beat(1, Note.Ball),
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Ball),
+                new Beat(2, Note.Ball),
+                new Beat(2, Note.Handstand)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(2, Note.Ball),
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(1, Note.Ball)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(4, Note.Ball),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(2, Note.Handstand)
             })
+            
         };
 
         private static readonly Sheet[] CompetentSheetBook =
         {
-            new(Tempo.Allegro, new ForwardTime(), new[]
+            new(Tempo.Moderato, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
-                new Beat(1, Note.Ball),
-                new Beat(1, Note.Juggle),
+                new Beat(2, Note.Ball),
                 new Beat(1, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(2, Note.Ball),
+                new Beat(1, Note.Juggle),
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Trumpet),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
                 new Beat(1, Note.Juggle),
                 new Beat(1, Note.Trumpet)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(4, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(2, Note.Juggle)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(3, Note.Handstand),
+                new Beat(3, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
             })
         };
 
@@ -57,14 +111,43 @@ namespace Runtime.Domain
         {
             new(Tempo.Presto, new ForwardTime(), new[]
             {
-                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Trumpet),
                 new Beat(1, Note.Ball),
                 new Beat(1, Note.Juggle),
+                new Beat(4, Note.Trumpet),
+                new Beat(1, Note.Handstand)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(1, Note.Handstand),
+                new Beat(2, Note.Ball),
                 new Beat(1, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(2, Note.Ball),
+                new Beat(1, Note.Juggle),
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Trumpet),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
                 new Beat(1, Note.Juggle),
                 new Beat(1, Note.Trumpet)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(4, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(2, Note.Juggle)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(3, Note.Handstand),
+                new Beat(3, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
             })
         };
 
@@ -72,20 +155,56 @@ namespace Runtime.Domain
         {
             new(Tempo.Prestissimo, new ForwardTime(), new[]
             {
+                new Beat(1, Note.Ball),
                 new Beat(1, Note.Handstand),
+                new Beat(3, Note.Juggle),
+                new Beat(3, Note.Handstand),
+            }),
+            new(Tempo.Presto, new ForwardTime(), new[]
+            {
+                new Beat(1, Note.Trumpet),
                 new Beat(1, Note.Ball),
                 new Beat(1, Note.Juggle),
+                new Beat(4, Note.Trumpet),
+                new Beat(1, Note.Handstand)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(1, Note.Handstand),
+                new Beat(2, Note.Ball),
                 new Beat(1, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(2, Note.Ball),
+                new Beat(1, Note.Juggle),
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(2, Note.Handstand),
+                new Beat(2, Note.Trumpet),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
                 new Beat(1, Note.Juggle),
                 new Beat(1, Note.Trumpet)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(4, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
+                new Beat(2, Note.Juggle)
+            }),
+            new(Tempo.Moderato, new ForwardTime(), new[]
+            {
+                new Beat(3, Note.Handstand),
+                new Beat(3, Note.Trumpet),
+                new Beat(1, Note.Handstand),
+                new Beat(1, Note.Ball),
             })
         };
 
         public static Song ComposeBasedOn(int sheetsPlayed) => new(RandomMusicWith(CalculateDifficulty(sheetsPlayed)));
 
-        private static int CalculateDifficulty(int sheetsPlayed) => Mathf.FloorToInt(sheetsPlayed / 10f);
+        private static int CalculateDifficulty(int sheetsPlayed) => Mathf.FloorToInt(sheetsPlayed / 5f);
 
         private static Sheet RandomMusicWith(int difficulty)
         {
