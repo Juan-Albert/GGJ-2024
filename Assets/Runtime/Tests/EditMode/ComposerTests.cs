@@ -10,12 +10,12 @@ namespace Runtime.Tests.EditMode
         public void ComposeDifficultySheets_BasedOnPlayedSheets()
         {
             Composer.ComposeBasedOn(0).Tempo.Should().Be(Tempo.OneBeatPerSecond);
-            Composer.ComposeBasedOn(9).Tempo.Should().Be(Tempo.OneBeatPerSecond);
-            Composer.ComposeBasedOn(10).Tempo.Should().Be(Tempo.Moderato);
-            Composer.ComposeBasedOn(20).Tempo.Should().Be(Tempo.Allegro);
-            Composer.ComposeBasedOn(30).Tempo.Should().Be(Tempo.Presto);
-            Composer.ComposeBasedOn(40).Tempo.Should().Be(Tempo.Prestissimo);
-            Composer.ComposeBasedOn(50).Tempo.Should().Be(Tempo.Prestissimo);
+            Composer.ComposeBasedOn(4).Tempo.Should().Be(Tempo.OneBeatPerSecond);
+            Composer.ComposeBasedOn(5).Tempo.Should().Be(Tempo.Moderato);
+            Composer.ComposeBasedOn(10).Tempo.Should().Be(Tempo.Allegro);
+            Composer.ComposeBasedOn(15).Tempo.Should().Be(Tempo.Presto);
+            Composer.ComposeBasedOn(20).Tempo.Should().Be(Tempo.Prestissimo);
+            Composer.ComposeBasedOn(25).Tempo.Should().Be(Tempo.Prestissimo);
         }        
     }
 }

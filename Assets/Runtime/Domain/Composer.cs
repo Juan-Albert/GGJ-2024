@@ -73,7 +73,7 @@ namespace Runtime.Domain
 
         private static readonly Sheet[] CompetentSheetBook =
         {
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Allegro, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
                 new Beat(2, Note.Ball),
@@ -82,7 +82,7 @@ namespace Runtime.Domain
                 new Beat(2, Note.Ball),
                 new Beat(1, Note.Juggle),
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Allegro, new ForwardTime(), new[]
             {
                 new Beat(2, Note.Handstand),
                 new Beat(2, Note.Trumpet),
@@ -91,14 +91,14 @@ namespace Runtime.Domain
                 new Beat(1, Note.Juggle),
                 new Beat(1, Note.Trumpet)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Allegro, new ForwardTime(), new[]
             {
                 new Beat(4, Note.Trumpet),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
                 new Beat(2, Note.Juggle)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Allegro, new ForwardTime(), new[]
             {
                 new Beat(3, Note.Handstand),
                 new Beat(3, Note.Trumpet),
@@ -117,7 +117,7 @@ namespace Runtime.Domain
                 new Beat(4, Note.Trumpet),
                 new Beat(1, Note.Handstand)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Presto, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
                 new Beat(2, Note.Ball),
@@ -126,7 +126,7 @@ namespace Runtime.Domain
                 new Beat(2, Note.Ball),
                 new Beat(1, Note.Juggle),
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Presto, new ForwardTime(), new[]
             {
                 new Beat(2, Note.Handstand),
                 new Beat(2, Note.Trumpet),
@@ -135,14 +135,14 @@ namespace Runtime.Domain
                 new Beat(1, Note.Juggle),
                 new Beat(1, Note.Trumpet)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Presto, new ForwardTime(), new[]
             {
                 new Beat(4, Note.Trumpet),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
                 new Beat(2, Note.Juggle)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Presto, new ForwardTime(), new[]
             {
                 new Beat(3, Note.Handstand),
                 new Beat(3, Note.Trumpet),
@@ -160,7 +160,7 @@ namespace Runtime.Domain
                 new Beat(3, Note.Juggle),
                 new Beat(3, Note.Handstand),
             }),
-            new(Tempo.Presto, new ForwardTime(), new[]
+            new(Tempo.Prestissimo, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Trumpet),
                 new Beat(1, Note.Ball),
@@ -168,7 +168,7 @@ namespace Runtime.Domain
                 new Beat(4, Note.Trumpet),
                 new Beat(1, Note.Handstand)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Prestissimo, new ForwardTime(), new[]
             {
                 new Beat(1, Note.Handstand),
                 new Beat(2, Note.Ball),
@@ -177,7 +177,7 @@ namespace Runtime.Domain
                 new Beat(2, Note.Ball),
                 new Beat(1, Note.Juggle),
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Prestissimo, new ForwardTime(), new[]
             {
                 new Beat(2, Note.Handstand),
                 new Beat(2, Note.Trumpet),
@@ -186,14 +186,14 @@ namespace Runtime.Domain
                 new Beat(1, Note.Juggle),
                 new Beat(1, Note.Trumpet)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Prestissimo, new ForwardTime(), new[]
             {
                 new Beat(4, Note.Trumpet),
                 new Beat(1, Note.Handstand),
                 new Beat(1, Note.Ball),
                 new Beat(2, Note.Juggle)
             }),
-            new(Tempo.Moderato, new ForwardTime(), new[]
+            new(Tempo.Prestissimo, new ForwardTime(), new[]
             {
                 new Beat(3, Note.Handstand),
                 new Beat(3, Note.Trumpet),
